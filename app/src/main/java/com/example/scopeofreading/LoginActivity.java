@@ -29,11 +29,11 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 Toast.makeText(this , "Verificando datos", Toast.LENGTH_SHORT).show();
                 break;
-            /*case R.id.btnRegistrarse:
+            case R.id.btnRegistrarse:
                 Intent intent2 = new Intent (LoginActivity.this, RegisterActivity.class);
                 startActivity(intent2);
                 Toast.makeText(this , "Cargando...", Toast.LENGTH_SHORT).show();
-                break;*/
+                break;
         }
     }
 }
