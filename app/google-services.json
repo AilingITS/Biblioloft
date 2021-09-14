@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "590206496719",
+    "project_id": "biblioloft",
+    "storage_bucket": "biblioloft.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590206496719:android:fc1e3167b8343f0f472cba",
+        "android_client_info": {
+          "package_name": "com.example.scopeofreading"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590206496719-qrqsp6k9bed320dbrv07o76f1mpu8mjm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.scopeofreading",
+            "certificate_hash": "141e00402c43c8c375aa1e4bbe837db11c3a03df"
+          }
+        },
+        {
+          "client_id": "590206496719-sil8ldg40fd33phbldbcvbigp37d2aak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQYZQxf1SOcWeVgtbqhRg7vAKiRrn0fco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590206496719-sil8ldg40fd33phbldbcvbigp37d2aak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
