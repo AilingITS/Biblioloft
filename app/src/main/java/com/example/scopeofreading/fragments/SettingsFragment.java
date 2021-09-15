@@ -16,6 +16,7 @@ import com.example.scopeofreading.LoginActivity;
 import com.example.scopeofreading.MainActivity;
 import com.example.scopeofreading.R;
 import com.example.scopeofreading.RegisterActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +24,8 @@ import com.example.scopeofreading.RegisterActivity;
  * create an instance of this fragment.
  */
 public class SettingsFragment extends Fragment {
+
+    private FirebaseAuth mAuth;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,6 +68,7 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -77,6 +81,7 @@ public class SettingsFragment extends Fragment {
         btncerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAuth.signOut();
                 Intent intent = new Intent (getContext(), LoginActivity.class);
                 startActivity(intent);
                 Toast.makeText(getContext(), "Cerrando sesión...", Toast.LENGTH_SHORT).show();
