@@ -21,4 +21,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Strings Profile -->
+    <string name="nombre_text">Nombre de usuario</string>
+    <string name="nombrecompleto_text">Nombre completo</string>
+    <string name="mail_text">Correo electronico</string>
+    <string name="Edad_text">Edad</string>
+    <string name="Celular_text">Celular</string>
+    <string name="actualizar_text">Actualizar datos</string>
 </resources>
