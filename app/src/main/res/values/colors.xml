@@ -19,7 +19,10 @@
     <color name="verdeBtn">#9BC399</color>
     <color name="verdeLigero">#6EA96B</color>
 
-
+    <!--            Login               -->
+    <color name="btn_rojoOscuro">#5C1D27</color>
+    <color name="btn_cafe">#8C3A1F</color>
+    <color name="background_login">#D66474</color>
 
 
 </resources>
