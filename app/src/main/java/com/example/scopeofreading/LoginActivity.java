@@ -23,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //Button btniniciarSesion, btnRegistrarse;
     private FirebaseAuth mAuth;
 
     private EditText usuario_etxt, txtPassword;
@@ -34,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        usuario_etxt = findViewById(R.id.correo_etxt);
+        usuario_etxt = findViewById(R.id.usuario_etxt);
         txtPassword = findViewById(R.id.password_etxt);
     }
 
@@ -53,15 +52,16 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
+
     public void userLogin(){
         String mail = usuario_etxt.getText().toString();
         String password = txtPassword.getText().toString();
 
         if(TextUtils.isEmpty(mail)){
-            usuario_etxt.setError("Ingrese un correo");
+            usuario_etxt.setError("Ingrese su nombre de usuario");
             usuario_etxt.requestFocus();
         } else if (TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Ingrese una contraseña", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ingrese su contraseña", Toast.LENGTH_SHORT).show();
             txtPassword.requestFocus();
         } else {
 
