@@ -3,7 +3,7 @@
 
     <!-- Strings Login -->
     <string name="lo_name">BIBLIOLOFT</string>
-    <string name="usuario_lo">Usuario</string>
+    <string name="correo_lo">Correo electronico</string>
     <string name="password_text">Contraseña</string>
     <string name="iniciarSesion">Iniciar sesión</string>
     <string name="cerrarSesion">Cerrar sesión</string>
