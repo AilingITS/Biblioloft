@@ -27,6 +27,11 @@
     <string name="Edad_text">Edad</string>
     <string name="Celular_text">Celular</string>
     <string name="actualizar_text">Actualizar datos</string>
+    
+    <!-- Strings settings -->
+    <string name="ModificarPerfil">Modificar Perfil</string>
+    <string name="TemaOscuro">TEMA OSCURO</string>
+    <string name="Español_English">ESPAÑOL/ENGLISH</string>
 
 
 </resources>

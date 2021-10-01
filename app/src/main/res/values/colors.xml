@@ -23,6 +23,8 @@
     <color name="btn_rojoOscuro">#5C1D27</color>
     <color name="btn_cafe">#8C3A1F</color>
     <color name="background_login">#D66474</color>
+    <color name="rojo_vino">#5C1D27</color>
+    <color name="amarillo_cafe">#8C3A1F</color>
 
 
 </resources>
