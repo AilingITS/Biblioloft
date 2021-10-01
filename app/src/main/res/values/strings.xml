@@ -3,11 +3,15 @@
 
     <!-- Strings Login -->
     <string name="lo_name">BIBLIOLOFT</string>
-    <string name="usuario_lo">Usuario</string>
+    <string name="correo_lo">Correo electronico</string>
     <string name="password_text">Contraseña</string>
     <string name="iniciarSesion">Iniciar sesión</string>
     <string name="cerrarSesion">Cerrar sesión</string>
     <string name="lo_bienvenido">¡Comienza a llevar el control de tu lectura!</string>
+
+    <!-- Strings Register -->
+    <string name="re_registrate">Regístrate</string>
+
 
     <string name="home_text">Home</string>
     <string name="challenge_text">Desafíos</string>
@@ -17,7 +21,6 @@
     <string name="cuentaNueva">Crear cuenta</string>
 
     <string name="usuario_text">Nombre de usuario</string>
-    <string name="uneteABiblio_text">¡Unete a Biblioloft!</string>
     <string name="confirmar_text">Confirmar</string>
 
     <!-- Strings Profile -->

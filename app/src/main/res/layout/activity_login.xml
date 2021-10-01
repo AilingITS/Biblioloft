@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_login"
+    android:background="@color/background_app"
     tools:context=".LoginActivity">
 
     <View
@@ -96,16 +96,16 @@
         app:layout_constraintTop_toBottomOf="@+id/ellipse_1" />
 
     <EditText
-        android:id="@+id/usuario_etxt"
+        android:id="@+id/lo_mail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginTop="120dp"
         android:layout_marginEnd="45dp"
         android:backgroundTint="@color/btn_rojoOscuro"
-        android:drawableStart="@drawable/ic_acc"
+        android:drawableStart="@drawable/ic_email"
         android:drawablePadding="10dp"
-        android:hint="@string/usuario_lo"
+        android:hint="@string/correo_lo"
         android:inputType="text"
         android:padding="15dp"
         android:textColor="@color/black"
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/password_etxt"
+        android:id="@+id/lo_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
@@ -135,7 +135,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usuario_etxt" />
+        app:layout_constraintTop_toBottomOf="@+id/lo_mail" />
 
     <Button
         android:id="@+id/btniniciarSesion"
@@ -150,7 +150,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_etxt" />
+        app:layout_constraintTop_toBottomOf="@+id/lo_password" />
 
     <Button
         android:id="@+id/btnRegistrarse"
