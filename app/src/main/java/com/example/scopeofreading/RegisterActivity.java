@@ -28,9 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-
     private FirebaseAuth mAuth;
-    private String userID;
+    //private String userID;
     private FirebaseDatabase db;
 
     private EditText txtUser, txtMail, txtPassword, txtConfPassword;
@@ -41,7 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
-        //db = FirebaseFirestore.getInstance();
         db = FirebaseDatabase.getInstance();
 
         txtUser = findViewById(R.id.usuario_etxt);
@@ -91,8 +89,8 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        userID = mAuth.getCurrentUser().getUid();
-                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(userID);
+                        //userID = mAuth.getCurrentUser().getUid();
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(name);
 
                         Map<String, Object> user = new HashMap<>();
                         user.put("Nombre", name);
@@ -102,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
                         dbRef.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Log.d("TAG", "onSuccess: Datos registrados " + userID);
+                                Log.d("TAG", "onSuccess: Datos registrados " + mail);
                             }
                         });
                         Toast.makeText(RegisterActivity.this, "Usuario registrado", Toast.LENGTH_SHORT).show();

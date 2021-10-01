@@ -3,11 +3,13 @@
 
     <!-- Strings Login -->
     <string name="lo_name">BIBLIOLOFT</string>
-    <string name="correo_lo">Correo electronico</string>
+    <string name="nombre_lo">Usuario</string>
     <string name="password_text">Contraseña</string>
     <string name="iniciarSesion">Iniciar sesión</string>
     <string name="cerrarSesion">Cerrar sesión</string>
     <string name="lo_bienvenido">¡Comienza a llevar el control de tu lectura!</string>
+    <string name="lo_spinner_1">Usuario</string>
+    <string name="lo_spinner_2">Administrador</string>
 
     <!-- Strings Register -->
     <string name="re_registrate">Regístrate</string>

@@ -9,11 +9,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.scopeofreading.Prevalent.Prevalent;
+import com.example.scopeofreading.firebase.Admin;
+import com.example.scopeofreading.firebase.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,11 +31,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import io.paperdb.Paper;
+
 public class LoginActivity extends AppCompatActivity {
 
     //Variables
     private FirebaseAuth mAuth;
-    private EditText lo_mail, lo_password;
+    //private String userID;
+    private DatabaseReference dbRef;
+    private EditText lo_nombre, lo_password;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +48,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+        //userID = mAuth.getCurrentUser().getUid();
+        dbRef = FirebaseDatabase.getInstance().getReference();
 
-        lo_mail = findViewById(R.id.lo_mail);
+        Paper.init(this);
+
+        lo_nombre = findViewById(R.id.lo_nombre);
         lo_password = findViewById(R.id.lo_password);
+
+        spinner = (Spinner) findViewById(R.id.spinner);
+        String [] opciones = {"Usuario", "Administrador"};
+        ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opciones);
+        spinner.setAdapter(adapter);
     }
 
     public void onClick(View v){
@@ -60,17 +79,70 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void userLogin(){
-        String mail = lo_mail.getText().toString();
+        String nombre = lo_nombre.getText().toString();
         String password = lo_password.getText().toString();
 
-        if(TextUtils.isEmpty(mail)){
-            lo_mail.setError("Ingrese su nombre de usuario");
-            lo_mail.requestFocus();
+        Paper.book().write(Prevalent.UserNameKey, nombre);
+        Paper.book().write(Prevalent.UserNameKey, nombre);
+
+
+        if(TextUtils.isEmpty(nombre)){
+            lo_nombre.setError("Ingrese su nombre de usuario");
+            lo_nombre.requestFocus();
         } else if (TextUtils.isEmpty(password)){
             Toast.makeText(this, "Ingrese su contraseña", Toast.LENGTH_SHORT).show();
             lo_password.requestFocus();
         } else {
-            mAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            String seleccion = spinner.getSelectedItem().toString();
+                // checar que la cuenta que escriba sea de tipo usuario
+            dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        if(seleccion.equals("Usuario")) {
+                            if (snapshot.child("users").child(nombre).exists()) {
+                                Users usersData = snapshot.child("users").child(nombre).getValue(Users.class);
+                                if (usersData.getNombre().equals(nombre)) {
+                                    if (usersData.getContraseña().equals(password)) {
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                                        lo_password.requestFocus();
+                                    }
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "El correo es incorrecto", Toast.LENGTH_SHORT).show();
+                                    lo_nombre.requestFocus();
+                                }
+                            } else {
+                                Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        if(seleccion.equals("Administrador")){
+                            if(snapshot.child("admin").child(nombre).exists()){
+
+                                Admin adminData = snapshot.child("admin").child(nombre).getValue(Admin.class);
+                                if(adminData.getNombre().equals(nombre)){
+                                    if(adminData.getContraseña().equals(password)){
+                                        startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                                        lo_password.requestFocus();
+                                    }
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "El correo es incorrecto", Toast.LENGTH_SHORT).show();
+                                    lo_nombre.requestFocus();
+                                }
+                            } else {
+                                Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+                });
+            }
+
+            /*mAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
@@ -80,7 +152,8 @@ public class LoginActivity extends AppCompatActivity {
                         Log.w("TAG", "Error:", task.getException());
                     }
                 }
-            });
+            });*/
+
+
         }
-    }
 }

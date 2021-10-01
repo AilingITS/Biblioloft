@@ -21,7 +21,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.scopeofreading.LoginActivity;
 import com.example.scopeofreading.MainActivity;
+import com.example.scopeofreading.Prevalent.Prevalent;
 import com.example.scopeofreading.R;
+import com.example.scopeofreading.firebase.Admin;
+import com.example.scopeofreading.firebase.Users;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,6 +36,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,6 +47,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.paperdb.Paper;
+
 public class ProfileFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
@@ -52,8 +58,8 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     private View vista;
-    private FirebaseAuth mAuth;
-    private String userID;
+    //private FirebaseAuth mAuth;
+    //private String userID;
 
     private ImageView fotoperfil;
     private static final int GalleryPick = 1;
@@ -94,8 +100,9 @@ public class ProfileFragment extends Fragment {
         // Declaramos la vista del fragment para retornarlo al final
         vista = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        Paper.init(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
         dbRef = firebaseDatabase.getReference();
         ImagesRef = FirebaseStorage.getInstance().getReference().child("images");
 
@@ -103,43 +110,53 @@ public class ProfileFragment extends Fragment {
         fotoperfil = vista.findViewById(R.id.fotoperfil);
         perfil_mail = vista.findViewById(R.id.perfil_mail);
 
+        String UserNameKey = Paper.book().read(Prevalent.UserNameKey);
+        //String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
+
+        perfil_usuario.setText(UserNameKey);
+        //perfil_mail.setText(UserPasswordKey);
+
         //Al momento de cargar el fragment perfil verifica si ya existen datos del usuario para cargarlos
-        dbRef.addValueEventListener(new ValueEventListener() {
+        /*dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    userID = mAuth.getCurrentUser().getUid();
+                    //userID = mAuth.getCurrentUser().getUid();
 
-                    if(snapshot.child("users").child(userID).child("image").exists()){
-                        String image = snapshot.child("users").child(userID).child("image").getValue().toString();
-                        Picasso.get().load(image).into(fotoperfil);
+                    Users userData = snapshot.child("users").getValue(Users.class);
+
+                    String nombreUser = userData.getNombre();
+
+                    if(nombreUser!=null){
+                        if(snapshot.child("users").child(nombreUser).child("image").exists()){
+                            String image = snapshot.child("users").child(nombreUser).child("image").getValue().toString();
+                            Picasso.get().load(image).into(fotoperfil);
+                        }
                     }
 
-                    String usuario = snapshot.child("users").child(userID).child("Nombre").getValue().toString();
-                    String mail = snapshot.child("users").child(userID).child("Correo").getValue().toString();
-                    perfil_usuario.setText(usuario);
-                    perfil_mail.setText(mail);
+                    perfil_usuario.setText(Prevalent.currentOnlineUser.getNombre());
+                    perfil_mail.setText(Prevalent.currentOnlineUser.getCorreo());
                 }
             }
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
             }
-        });
+        });*/
 
         perfil_actualizar = (Button) vista.findViewById(R.id.perfil_actualizar);
-        perfil_actualizar.setOnClickListener(new View.OnClickListener() {
+        /*perfil_actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ValidateProductData();
             }
-        });
+        });*/
 
-        fotoperfil.setOnClickListener(new View.OnClickListener() {
+        /*fotoperfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OpenGallery();
             }
-        });
+        });*/
 
         return vista;
     }
@@ -164,8 +181,10 @@ public class ProfileFragment extends Fragment {
         } else if (TextUtils.isEmpty(mail)){
             Toast.makeText(getActivity(), "Ingrese un correo", Toast.LENGTH_SHORT).show();
         } else { //Si el usuario si agrego una imagen de perfil entra en este else
-            userID = mAuth.getCurrentUser().getUid();
-            StorageReference fileRef = ImagesRef.child(userID + ".jpg");
+
+            String nombreUser = Prevalent.currentOnlineUser.getNombre();
+
+            StorageReference fileRef = ImagesRef.child(nombreUser + ".jpg");
             final UploadTask uploadTask = fileRef.putFile(ImageUri);
 
             uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -208,8 +227,8 @@ public class ProfileFragment extends Fragment {
         infoMap.put("Nombre", usuario);
         infoMap.put("Correo", mail);
 
-        userID = mAuth.getCurrentUser().getUid();
-        dbRef.child("users").child(userID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        String nombreUser = Prevalent.currentOnlineUser.getNombre();
+        dbRef.child("users").child(nombreUser).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -232,8 +251,8 @@ public class ProfileFragment extends Fragment {
         infoMap.put("Correo", mail);
         infoMap.put("image", downloadImageUrl);
 
-        userID = mAuth.getCurrentUser().getUid();
-        dbRef.child("users").child(userID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        String nombreUser = Prevalent.currentOnlineUser.getNombre();
+        dbRef.child("users").child(nombreUser).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if(task.isSuccessful()){

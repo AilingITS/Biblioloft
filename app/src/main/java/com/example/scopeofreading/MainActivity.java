@@ -14,6 +14,8 @@ import com.example.scopeofreading.fragments.ProfileFragment;
 import com.example.scopeofreading.fragments.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import io.paperdb.Paper;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navigationView;
@@ -24,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
 
         BottomNavigationView bottomNav =(BottomNavigationView)findViewById(R.id.bottom_navigation);
 
