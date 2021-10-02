@@ -60,6 +60,15 @@ public class LoginActivity extends AppCompatActivity {
         String [] opciones = {"Usuario", "Administrador"};
         ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opciones);
         spinner.setAdapter(adapter);
+
+        String UserNameKey = Paper.book().read(Prevalent.UserNameKey);
+        String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
+
+        if(UserNameKey != "" && UserPasswordKey != ""){
+            if(!TextUtils.isEmpty(UserNameKey) && !TextUtils.isEmpty(UserPasswordKey)){
+                AllowAccess(UserNameKey, UserPasswordKey);
+            }
+        }
     }
 
     public void onClick(View v){
@@ -83,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = lo_password.getText().toString();
 
         Paper.book().write(Prevalent.UserNameKey, nombre);
-        Paper.book().write(Prevalent.UserNameKey, nombre);
+        Paper.book().write(Prevalent.UserPasswordKey, password);
 
 
         if(TextUtils.isEmpty(nombre)){
@@ -156,4 +165,78 @@ public class LoginActivity extends AppCompatActivity {
 
 
         }
+
+    private void AllowAccess(final String nombre, final String password) {
+        String seleccion = spinner.getSelectedItem().toString();
+        // checar que la cuenta que escriba sea de tipo usuario
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if(seleccion.equals("Usuario")) {
+                    if (snapshot.child("users").child(nombre).exists()) {
+                        Users usersData = snapshot.child("users").child(nombre).getValue(Users.class);
+                        if (usersData.getNombre().equals(nombre)) {
+                            if (usersData.getContraseña().equals(password)) {
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                Prevalent.currentOnlineUser = usersData;
+                            } else {
+                                Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                                lo_password.requestFocus();
+                            }
+                        } else {
+                            Toast.makeText(LoginActivity.this, "El nombre de usuario es incorrecto", Toast.LENGTH_SHORT).show();
+                            lo_nombre.requestFocus();
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                /*if(seleccion.equals("Administrador")){
+                    if(snapshot.child("admin").child(nombre).exists()){
+
+                        Admin adminData = snapshot.child("admin").child(nombre).getValue(Admin.class);
+                        if(adminData.getNombre().equals(nombre)){
+                            if(adminData.getContraseña().equals(password)){
+                                startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                                Prevalent.currentOnlineAdmin = adminData;
+                            } else {
+                                Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                                lo_password.requestFocus();
+                            }
+                        } else {
+                            Toast.makeText(LoginActivity.this, "El correo es incorrecto", Toast.LENGTH_SHORT).show();
+                            lo_nombre.requestFocus();
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
+                    }
+                }*/
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+        });
+
+        /*final DatabaseReference dbRef;
+        dbRef = FirebaseDatabase.getInstance().getReference();
+
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if(snapshot.child("users").child(name).exists()){
+                    Users usersData = snapshot.child("users").child(name).getValue(Users.class);
+                    if(usersData.getNombre().equals(name)){
+                        if(usersData.getContraseña().equals(pass)){
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });*/
+    }
 }

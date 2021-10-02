@@ -39,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
@@ -58,18 +59,14 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     private View vista;
-    //private FirebaseAuth mAuth;
-    //private String userID;
 
-    private ImageView fotoperfil;
     private static final int GalleryPick = 1;
     private Uri ImageUri;
     private String downloadImageUrl;
 
+    private ImageView fotoperfil;
     private EditText perfil_usuario, perfil_mail;
     private Button perfil_actualizar;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference dbRef;
     private StorageReference ImagesRef;
 
     public ProfileFragment() {
@@ -100,65 +97,59 @@ public class ProfileFragment extends Fragment {
         // Declaramos la vista del fragment para retornarlo al final
         vista = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        Paper.init(getContext());
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        //mAuth = FirebaseAuth.getInstance();
-        dbRef = firebaseDatabase.getReference();
         ImagesRef = FirebaseStorage.getInstance().getReference().child("images");
 
-        perfil_usuario = vista.findViewById(R.id.perfil_usuario);
         fotoperfil = vista.findViewById(R.id.fotoperfil);
+        perfil_usuario = vista.findViewById(R.id.perfil_usuario);
         perfil_mail = vista.findViewById(R.id.perfil_mail);
 
-        String UserNameKey = Paper.book().read(Prevalent.UserNameKey);
-        //String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
-
-        perfil_usuario.setText(UserNameKey);
-        //perfil_mail.setText(UserPasswordKey);
-
-        //Al momento de cargar el fragment perfil verifica si ya existen datos del usuario para cargarlos
-        /*dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    //userID = mAuth.getCurrentUser().getUid();
-
-                    Users userData = snapshot.child("users").getValue(Users.class);
-
-                    String nombreUser = userData.getNombre();
-
-                    if(nombreUser!=null){
-                        if(snapshot.child("users").child(nombreUser).child("image").exists()){
-                            String image = snapshot.child("users").child(nombreUser).child("image").getValue().toString();
-                            Picasso.get().load(image).into(fotoperfil);
-                        }
-                    }
-
-                    perfil_usuario.setText(Prevalent.currentOnlineUser.getNombre());
-                    perfil_mail.setText(Prevalent.currentOnlineUser.getCorreo());
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-            }
-        });*/
+        userInfoDisplay(perfil_usuario, perfil_mail, fotoperfil);
 
         perfil_actualizar = (Button) vista.findViewById(R.id.perfil_actualizar);
-        /*perfil_actualizar.setOnClickListener(new View.OnClickListener() {
+        perfil_actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ValidateProductData();
             }
-        });*/
+        });
 
-        /*fotoperfil.setOnClickListener(new View.OnClickListener() {
+        fotoperfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OpenGallery();
             }
-        });*/
+        });
 
         return vista;
+    }
+
+    private void userInfoDisplay(EditText perfil_usuario, EditText perfil_mail, ImageView fotoperfil) {
+        if(Prevalent.currentOnlineUser.getNombre() != null) {
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(Prevalent.currentOnlineUser.getNombre());
+
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    if(snapshot.exists()){
+                        if(snapshot.child("Image").exists()){
+                            String image = snapshot.child("Image").getValue().toString();
+
+                            Picasso.get().load(image).into(fotoperfil);
+                        }
+
+                        String name = snapshot.child("Nombre").getValue().toString();
+                        String correo = snapshot.child("Correo").getValue().toString();
+                        perfil_usuario.setText(name);
+                        perfil_mail.setText(correo);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                }
+            });
+        }
     }
 
     //Función que sirve para cambiar de fragmento en fragmento
@@ -182,9 +173,7 @@ public class ProfileFragment extends Fragment {
             Toast.makeText(getActivity(), "Ingrese un correo", Toast.LENGTH_SHORT).show();
         } else { //Si el usuario si agrego una imagen de perfil entra en este else
 
-            String nombreUser = Prevalent.currentOnlineUser.getNombre();
-
-            StorageReference fileRef = ImagesRef.child(nombreUser + ".jpg");
+            StorageReference fileRef = ImagesRef.child(Prevalent.currentOnlineUser.getNombre() + ".jpg");
             final UploadTask uploadTask = fileRef.putFile(ImageUri);
 
             uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -221,14 +210,21 @@ public class ProfileFragment extends Fragment {
 
     // Actualiza los datos menos la foto de perfil
     private void SaveInfoToDatabasewithoutImage() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users");
+        DatabaseReference refid = FirebaseDatabase.getInstance().getReference();
+
         HashMap<String, Object> infoMap = new HashMap<>();
         String usuario = perfil_usuario.getText().toString();
         String mail = perfil_mail.getText().toString();
+        refid.child("users").child(usuario);
         infoMap.put("Nombre", usuario);
         infoMap.put("Correo", mail);
 
-        String nombreUser = Prevalent.currentOnlineUser.getNombre();
-        dbRef.child("users").child(nombreUser).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ref.child(Prevalent.currentOnlineUser.getNombre()).updateChildren(infoMap);
+
+        Toast.makeText(getActivity(), "Perfil Actualizado con exito", Toast.LENGTH_SHORT).show();
+        /*String nombreUser = Prevalent.currentOnlineUser.getNombre();
+        ref.child(nombreUser).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -239,20 +235,24 @@ public class ProfileFragment extends Fragment {
                     Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
     }
 
     //Guardar información de perfil con imagen de perfil
     private void SaveInfoToDatabase() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users");
+
         HashMap<String, Object> infoMap = new HashMap<>();
         String usuario = perfil_usuario.getText().toString();
         String mail = perfil_mail.getText().toString();
         infoMap.put("Nombre", usuario);
         infoMap.put("Correo", mail);
-        infoMap.put("image", downloadImageUrl);
+        infoMap.put("Image", downloadImageUrl);
 
-        String nombreUser = Prevalent.currentOnlineUser.getNombre();
-        dbRef.child("users").child(nombreUser).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ref.child(Prevalent.currentOnlineUser.getNombre()).updateChildren(infoMap);
+        Toast.makeText(getActivity(), "Perfil Actualizado con exito", Toast.LENGTH_SHORT).show();
+
+        /*dbRef.child("users").child(Prevalent.currentOnlineUser.getNombre()).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -263,7 +263,7 @@ public class ProfileFragment extends Fragment {
                     Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
     }
 
     //Función para abrir la galeria cuando da clic en la imagen

@@ -8,6 +8,6 @@ public class Prevalent {
     public static Admin currentOnlineAdmin;
 
     public static final String UserNameKey = " UserName";
-    public static final String UserMailKey = " UserMail";
+    public static final String UserPasswordKey = " UserPassword";
 
 }
