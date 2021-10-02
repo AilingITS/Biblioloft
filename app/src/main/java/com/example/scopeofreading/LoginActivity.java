@@ -36,20 +36,14 @@ import io.paperdb.Paper;
 public class LoginActivity extends AppCompatActivity {
 
     //Variables
-    private FirebaseAuth mAuth;
-    //private String userID;
-    private DatabaseReference dbRef;
     private EditText lo_nombre, lo_password;
     private Spinner spinner;
+    private String parentdbName = "users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        mAuth = FirebaseAuth.getInstance();
-        //userID = mAuth.getCurrentUser().getUid();
-        dbRef = FirebaseDatabase.getInstance().getReference();
 
         Paper.init(this);
 
@@ -91,10 +85,6 @@ public class LoginActivity extends AppCompatActivity {
         String nombre = lo_nombre.getText().toString();
         String password = lo_password.getText().toString();
 
-        Paper.book().write(Prevalent.UserNameKey, nombre);
-        Paper.book().write(Prevalent.UserPasswordKey, password);
-
-
         if(TextUtils.isEmpty(nombre)){
             lo_nombre.setError("Ingrese su nombre de usuario");
             lo_nombre.requestFocus();
@@ -102,103 +92,29 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Ingrese su contraseña", Toast.LENGTH_SHORT).show();
             lo_password.requestFocus();
         } else {
-            String seleccion = spinner.getSelectedItem().toString();
-                // checar que la cuenta que escriba sea de tipo usuario
-            dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                        if(seleccion.equals("Usuario")) {
-                            if (snapshot.child("users").child(nombre).exists()) {
-                                Users usersData = snapshot.child("users").child(nombre).getValue(Users.class);
-                                if (usersData.getNombre().equals(nombre)) {
-                                    if (usersData.getContraseña().equals(password)) {
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
-                                        lo_password.requestFocus();
-                                    }
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "El correo es incorrecto", Toast.LENGTH_SHORT).show();
-                                    lo_nombre.requestFocus();
-                                }
-                            } else {
-                                Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        if(seleccion.equals("Administrador")){
-                            if(snapshot.child("admin").child(nombre).exists()){
-
-                                Admin adminData = snapshot.child("admin").child(nombre).getValue(Admin.class);
-                                if(adminData.getNombre().equals(nombre)){
-                                    if(adminData.getContraseña().equals(password)){
-                                        startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
-                                        lo_password.requestFocus();
-                                    }
-                                } else {
-                                    Toast.makeText(LoginActivity.this, "El correo es incorrecto", Toast.LENGTH_SHORT).show();
-                                    lo_nombre.requestFocus();
-                                }
-                            } else {
-                                Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull @NotNull DatabaseError error) { }
-                });
-            }
-
-            /*mAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(LoginActivity.this, "Bienvenid@ a Biblioloft", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    } else {
-                        Log.w("TAG", "Error:", task.getException());
-                    }
-                }
-            });*/
-
-
+           AllowAccessToAccount(nombre, password);
         }
+    }
 
-    private void AllowAccess(final String nombre, final String password) {
+    private void AllowAccessToAccount(String nombre, String password) {
         String seleccion = spinner.getSelectedItem().toString();
+
+        Paper.book().write(Prevalent.UserNameKey, nombre);
+        Paper.book().write(Prevalent.UserPasswordKey, password);
+
         // checar que la cuenta que escriba sea de tipo usuario
+        final DatabaseReference dbRef;
+        dbRef = FirebaseDatabase.getInstance().getReference();
+
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if(seleccion.equals("Usuario")) {
-                    if (snapshot.child("users").child(nombre).exists()) {
-                        Users usersData = snapshot.child("users").child(nombre).getValue(Users.class);
+                    if (snapshot.child(parentdbName).child(nombre).exists()) {
+                        Users usersData = snapshot.child(parentdbName).child(nombre).getValue(Users.class);
                         if (usersData.getNombre().equals(nombre)) {
                             if (usersData.getContraseña().equals(password)) {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                Prevalent.currentOnlineUser = usersData;
-                            } else {
-                                Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
-                                lo_password.requestFocus();
-                            }
-                        } else {
-                            Toast.makeText(LoginActivity.this, "El nombre de usuario es incorrecto", Toast.LENGTH_SHORT).show();
-                            lo_nombre.requestFocus();
-                        }
-                    } else {
-                        Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                /*if(seleccion.equals("Administrador")){
-                    if(snapshot.child("admin").child(nombre).exists()){
-
-                        Admin adminData = snapshot.child("admin").child(nombre).getValue(Admin.class);
-                        if(adminData.getNombre().equals(nombre)){
-                            if(adminData.getContraseña().equals(password)){
-                                startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-                                Prevalent.currentOnlineAdmin = adminData;
                             } else {
                                 Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
                                 lo_password.requestFocus();
@@ -210,33 +126,61 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
                     }
-                }*/
-            }
+                }
+                if(seleccion.equals("Administrador")){
+                    if(snapshot.child("admin").child(nombre).exists()){
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
-        });
-
-        /*final DatabaseReference dbRef;
-        dbRef = FirebaseDatabase.getInstance().getReference();
-
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                if(snapshot.child("users").child(name).exists()){
-                    Users usersData = snapshot.child("users").child(name).getValue(Users.class);
-                    if(usersData.getNombre().equals(name)){
-                        if(usersData.getContraseña().equals(pass)){
-
+                        Admin adminData = snapshot.child("admin").child(nombre).getValue(Admin.class);
+                        if(adminData.getNombre().equals(nombre)){
+                            if(adminData.getContraseña().equals(password)){
+                                startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                            } else {
+                                Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                                lo_password.requestFocus();
+                            }
+                        } else {
+                            Toast.makeText(LoginActivity.this, "El correo es incorrecto", Toast.LENGTH_SHORT).show();
+                            lo_nombre.requestFocus();
                         }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+        });
+    }
 
+    private void AllowAccess(final String nombre, final String password) {
+        final DatabaseReference dbRef;
+        dbRef = FirebaseDatabase.getInstance().getReference();
+
+        // checar que la cuenta que escriba sea de tipo usuario
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if (snapshot.child("users").child(nombre).exists()) {
+                    Users usersData = snapshot.child("users").child(nombre).getValue(Users.class);
+                    if (usersData.getNombre().equals(nombre)) {
+                        if (usersData.getContraseña().equals(password)) {
+                            Prevalent.currentOnlineUser = usersData;
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        } else {
+                            Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                            lo_password.requestFocus();
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, "El nombre de usuario es incorrecto", Toast.LENGTH_SHORT).show();
+                        lo_nombre.requestFocus();
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, "No existe una cuenta con este usuario o el tipo de usuario es incorrecto", Toast.LENGTH_SHORT).show();
+                }
             }
-        });*/
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+        });
     }
 }

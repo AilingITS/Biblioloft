@@ -67,6 +67,7 @@ public class SettingsFragment extends Fragment {
                 Paper.book().destroy();
                 Intent intent = new Intent (getContext(), LoginActivity.class);
                 startActivity(intent);
+                getActivity().finish();
                 Toast.makeText(getContext(), "Cerrando sesión...", Toast.LENGTH_SHORT).show();
             }
         });

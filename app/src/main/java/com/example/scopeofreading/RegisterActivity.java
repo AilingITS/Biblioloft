@@ -17,8 +17,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -28,8 +31,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
+
     private FirebaseAuth mAuth;
-    //private String userID;
     private FirebaseDatabase db;
 
     private EditText txtUser, txtMail, txtPassword, txtConfPassword;
@@ -51,9 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btnConfirmar:
-                //Intent intent = new Intent (RegisterActivity.this, LoginActivity.class);
-                //startActivity(intent);
-                //Toast.makeText(this , "Cuenta creada correctamente.", Toast.LENGTH_SHORT).show();
                 createuser();
                 break;
         }
@@ -85,31 +85,44 @@ public class RegisterActivity extends AppCompatActivity {
             txtPassword.setError("La contraseña debe tener mas de 6 caracteres");
             txtPassword.requestFocus();
         } else {
-            mAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-                        //userID = mAuth.getCurrentUser().getUid();
-                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("users").child(name);
-
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("Nombre", name);
-                        user.put("Correo", mail);
-                        user.put("Contraseña", password);
-
-                        dbRef.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Log.d("TAG", "onSuccess: Datos registrados " + mail);
-                            }
-                        });
-                        Toast.makeText(RegisterActivity.this, "Usuario registrado", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                    } else {
-                        Toast.makeText(RegisterActivity.this, "Usuario no registrado" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+            ValidateMail(mail, password, name);
         }
+
+
+    }
+
+    private void ValidateMail(String mail, String password, String name ) {
+
+        final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if(!(snapshot.child("users").child(name).exists())){
+
+                    HashMap<String, Object> infoMap = new HashMap<>();
+                    infoMap.put("Nombre", name);
+                    infoMap.put("Correo", mail);
+                    infoMap.put("Contraseña", password);
+
+                    dbRef.child("users").child(name).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                               if(task.isSuccessful()){
+                                   Toast.makeText(RegisterActivity.this, "Cuenta creada correctamente", Toast.LENGTH_SHORT).show();
+                                   Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                   startActivity(intent);
+                               }
+                        }
+                    });
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Este nombre de usuario ya existe", Toast.LENGTH_SHORT).show();
+                    txtUser.requestFocus();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+        });
     }
 }
+
