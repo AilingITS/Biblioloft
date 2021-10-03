@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         ArrayAdapter <String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opciones);
         spinner.setAdapter(adapter);
 
+        // Verificar si existe una sesion, para iniciar sesion automatico
         String UserNameKey = Paper.book().read(Prevalent.UserNameKey);
         String UserPasswordKey = Paper.book().read(Prevalent.UserPasswordKey);
 
@@ -99,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     private void AllowAccessToAccount(String nombre, String password) {
         String seleccion = spinner.getSelectedItem().toString();
 
+        //Guardamos los datos del usuario cuando inicia sesión
         Paper.book().write(Prevalent.UserNameKey, nombre);
         Paper.book().write(Prevalent.UserPasswordKey, password);
 
@@ -114,13 +116,15 @@ public class LoginActivity extends AppCompatActivity {
                         Users usersData = snapshot.child(parentdbName).child(nombre).getValue(Users.class);
                         if (usersData.getNombre().equals(nombre)) {
                             if (usersData.getContraseña().equals(password)) {
+                                //La siguiente linea guarda al usuario en el prevalent para mostrar los datos en perfil
+                                Prevalent.currentOnlineUser = usersData;
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             } else {
                                 Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
                                 lo_password.requestFocus();
                             }
                         } else {
-                            Toast.makeText(LoginActivity.this, "El correo es incorrecto", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "El usuario es incorrecto", Toast.LENGTH_SHORT).show();
                             lo_nombre.requestFocus();
                         }
                     } else {
@@ -129,7 +133,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if(seleccion.equals("Administrador")){
                     if(snapshot.child("admin").child(nombre).exists()){
-
                         Admin adminData = snapshot.child("admin").child(nombre).getValue(Admin.class);
                         if(adminData.getNombre().equals(nombre)){
                             if(adminData.getContraseña().equals(password)){
@@ -139,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                                 lo_password.requestFocus();
                             }
                         } else {
-                            Toast.makeText(LoginActivity.this, "El correo es incorrecto", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "El usuario es incorrecto", Toast.LENGTH_SHORT).show();
                             lo_nombre.requestFocus();
                         }
                     } else {

@@ -29,7 +29,6 @@ public class SettingsFragment extends Fragment {
 
     View vista;
     Button btncerrarSesion;
-    //private FirebaseAuth mAuth;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -51,7 +50,8 @@ public class SettingsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-       //mAuth = FirebaseAuth.getInstance();
+
+        Paper.init(getContext());
     }
 
     @Override
@@ -65,7 +65,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Paper.book().destroy();
-                Intent intent = new Intent (getContext(), LoginActivity.class);
+                Intent intent = new Intent (getActivity(), LoginActivity.class);
                 startActivity(intent);
                 getActivity().finish();
                 Toast.makeText(getContext(), "Cerrando sesión...", Toast.LENGTH_SHORT).show();

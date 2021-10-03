@@ -51,7 +51,6 @@ import java.util.Map;
 import io.paperdb.Paper;
 
 public class ProfileFragment extends Fragment {
-
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final int RESULT_OK = -1;
@@ -59,15 +58,15 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     private View vista;
+    private ImageView profile_image;
+    private EditText profile_user, profile_mail;
+    private Button profile_upgrade;
+
+    private StorageReference ImagesRef;
 
     private static final int GalleryPick = 1;
     private Uri ImageUri;
     private String downloadImageUrl;
-
-    private ImageView fotoperfil;
-    private EditText perfil_usuario, perfil_mail;
-    private Button perfil_actualizar;
-    private StorageReference ImagesRef;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -99,21 +98,21 @@ public class ProfileFragment extends Fragment {
 
         ImagesRef = FirebaseStorage.getInstance().getReference().child("images");
 
-        fotoperfil = vista.findViewById(R.id.fotoperfil);
-        perfil_usuario = vista.findViewById(R.id.perfil_usuario);
-        perfil_mail = vista.findViewById(R.id.perfil_mail);
+        profile_image = vista.findViewById(R.id.profile_image);
+        profile_user = vista.findViewById(R.id.profile_user);
+        profile_mail = vista.findViewById(R.id.profile_mail);
 
-        userInfoDisplay(perfil_usuario, perfil_mail, fotoperfil);
+        userInfoDisplay(profile_user, profile_mail, profile_image);
 
-        perfil_actualizar = (Button) vista.findViewById(R.id.perfil_actualizar);
-        perfil_actualizar.setOnClickListener(new View.OnClickListener() {
+        profile_upgrade = (Button) vista.findViewById(R.id.profile_upgrade);
+        profile_upgrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ValidateProductData();
             }
         });
 
-        fotoperfil.setOnClickListener(new View.OnClickListener() {
+        profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OpenGallery();
@@ -123,33 +122,27 @@ public class ProfileFragment extends Fragment {
         return vista;
     }
 
-    private void userInfoDisplay(EditText perfil_usuario, EditText perfil_mail, ImageView fotoperfil) {
-        if(Prevalent.currentOnlineUser.getNombre() != null) {
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(Prevalent.currentOnlineUser.getNombre());
+    private void userInfoDisplay(final EditText perfil_usuario, final EditText perfil_mail, final ImageView fotoperfil) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(Prevalent.currentOnlineUser.getNombre());
 
-            userRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                    if(snapshot.exists()){
-                        if(snapshot.child("Image").exists()){
-                            String image = snapshot.child("Image").getValue().toString();
-
-                            Picasso.get().load(image).into(fotoperfil);
-                        }
-
-                        String name = snapshot.child("Nombre").getValue().toString();
-                        String correo = snapshot.child("Correo").getValue().toString();
-                        perfil_usuario.setText(name);
-                        perfil_mail.setText(correo);
-
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    if(snapshot.child("Image").exists()){
+                        String image = snapshot.child("Image").getValue().toString();
+                        Picasso.get().load(image).into(fotoperfil);
                     }
+                    String name = snapshot.child("Nombre").getValue().toString();
+                    String correo = snapshot.child("Correo").getValue().toString();
+                    perfil_usuario.setText(name);
+                    perfil_mail.setText(correo);
                 }
-
-                @Override
-                public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                }
-            });
-        }
+            }
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+            }
+        });
     }
 
     //Función que sirve para cambiar de fragmento en fragmento
@@ -162,8 +155,8 @@ public class ProfileFragment extends Fragment {
 
     //Función cuando el usuario da clic en el boton actualizar datos
     private void ValidateProductData() {
-        String usuario = perfil_usuario.getText().toString();
-        String mail = perfil_mail.getText().toString();
+        String usuario = profile_user.getText().toString();
+        String mail = profile_mail.getText().toString();
 
         if(ImageUri == null){ //En caso que el usuario modifico datos pero no su imagen se llama a la sig función solo para actualizar datos
             SaveInfoToDatabasewithoutImage();
@@ -214,8 +207,8 @@ public class ProfileFragment extends Fragment {
         DatabaseReference refid = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, Object> infoMap = new HashMap<>();
-        String usuario = perfil_usuario.getText().toString();
-        String mail = perfil_mail.getText().toString();
+        String usuario = profile_user.getText().toString();
+        String mail = profile_mail.getText().toString();
         refid.child("users").child(usuario);
         infoMap.put("Nombre", usuario);
         infoMap.put("Correo", mail);
@@ -223,19 +216,6 @@ public class ProfileFragment extends Fragment {
         ref.child(Prevalent.currentOnlineUser.getNombre()).updateChildren(infoMap);
 
         Toast.makeText(getActivity(), "Perfil Actualizado con exito", Toast.LENGTH_SHORT).show();
-        /*String nombreUser = Prevalent.currentOnlineUser.getNombre();
-        ref.child(nombreUser).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(getActivity(), "Datos actualizados correctamente", Toast.LENGTH_SHORT).show();
-                    replaceFragment(new SettingsFragment());
-                } else {
-                    String message = task.getException().toString();
-                    Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
     }
 
     //Guardar información de perfil con imagen de perfil
@@ -243,8 +223,8 @@ public class ProfileFragment extends Fragment {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users");
 
         HashMap<String, Object> infoMap = new HashMap<>();
-        String usuario = perfil_usuario.getText().toString();
-        String mail = perfil_mail.getText().toString();
+        String usuario = profile_user.getText().toString();
+        String mail = profile_mail.getText().toString();
         infoMap.put("Nombre", usuario);
         infoMap.put("Correo", mail);
         infoMap.put("Image", downloadImageUrl);
@@ -252,18 +232,6 @@ public class ProfileFragment extends Fragment {
         ref.child(Prevalent.currentOnlineUser.getNombre()).updateChildren(infoMap);
         Toast.makeText(getActivity(), "Perfil Actualizado con exito", Toast.LENGTH_SHORT).show();
 
-        /*dbRef.child("users").child(Prevalent.currentOnlineUser.getNombre()).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull @NotNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(getActivity(), "Datos actualizados correctamente", Toast.LENGTH_SHORT).show();
-                    replaceFragment(new SettingsFragment());
-                } else {
-                    String message = task.getException().toString();
-                    Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
     }
 
     //Función para abrir la galeria cuando da clic en la imagen
@@ -280,7 +248,7 @@ public class ProfileFragment extends Fragment {
 
         if (requestCode==GalleryPick && resultCode==RESULT_OK && data!=null){
             ImageUri = data.getData();
-            fotoperfil.setImageURI(ImageUri);
+            profile_image.setImageURI(ImageUri);
         }
     }
 }
