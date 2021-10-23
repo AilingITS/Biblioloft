@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         BottomNavigationView bottomNav =(BottomNavigationView)findViewById(R.id.bottom_navigation);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.body_container, new HomeFragment()).commit();
