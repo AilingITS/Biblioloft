@@ -13,15 +13,12 @@
 
     <!-- Strings Register -->
     <string name="re_registrate">Regístrate</string>
-
-
-    <string name="home_text">Home</string>
+    <string name="home_text">Inicio</string>
     <string name="challenge_text">Desafíos</string>
     <string name="profile_text">Perfil</string>
     <string name="setting_text">Configuración</string>
     <string name="confPassword_text">Confirmar contraseña</string>
     <string name="cuentaNueva">Crear cuenta</string>
-
     <string name="usuario_text">Nombre de usuario</string>
     <string name="confirmar_text">Confirmar</string>
 
@@ -38,5 +35,20 @@
     <string name="TemaOscuro">TEMA OSCURO</string>
     <string name="Español_English">ESPAÑOL/ENGLISH</string>
 
+    <!-- Strings admin -->
+    <string name="agregarLibro">Agregar Libro</string>
+    <string name="datosLibro">Datos del libro</string>
+    <string name="nombreLibro">Nombre del libro</string>
+    <string name="descripcionLibro">Descripción del libro</string>
+    <string name="paginasLibro">Páginas del libro</string>
+    <string name="stringCientificos">Cientificos</string>
+    <string name="stringLiteratura">Literatura</string>
+    <string name="stringAventura">Aventura</string>
+    <string name="stringTerror">Terror</string>
+    <string name="stringMisterio">Misterio</string>
+    <string name="stringRecreativos">Recreativos</string>
+    <string name="stringPoeticos">Poeticos</string>
+    <string name="stringRomanticos">Romanticos</string>
+    <string name="stringFiccion">Ficción</string>
 
 </resources>

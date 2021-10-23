@@ -13,18 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/item_menu"
         android:background="@drawable/round_corner"
-        app:itemRippleColor="@android:color/transparent"
         android:padding="8dp"
         app:itemIconSize="30dp"
-        app:labelVisibilityMode="unlabeled"
         app:itemIconTint="@drawable/item_selector"
-        />
-
-
-
-
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/item_menu" />
     <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
