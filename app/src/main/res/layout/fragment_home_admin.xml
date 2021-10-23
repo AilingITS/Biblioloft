@@ -29,11 +29,9 @@
         android:layout_height="110dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
         android:background="@drawable/input_button"
         android:drawableStart="@drawable/ic_cientificos_90"
-        android:paddingStart="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/imgLiteratura"
+        android:paddingStart="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -41,27 +39,23 @@
         android:id="@+id/textCientificos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:gravity="center"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
         android:text="@string/stringCientificos"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/textLiteratura"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imgCientificos"
+        app:layout_constraintStart_toStartOf="@+id/imgCientificos"
         app:layout_constraintTop_toBottomOf="@+id/imgCientificos" />
 
     <Button
         android:id="@+id/imgLiteratura"
         android:layout_width="100dp"
         android:layout_height="110dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="24dp"
         android:background="@drawable/input_button"
         android:drawableStart="@drawable/ic_literatura_90"
         android:paddingStart="7dp"
-        app:layout_constraintEnd_toStartOf="@+id/imgAventura"
         app:layout_constraintStart_toEndOf="@+id/imgCientificos"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -69,14 +63,12 @@
         android:id="@+id/textLiteratura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="@string/stringLiteratura"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/textAventura"
-        app:layout_constraintStart_toEndOf="@+id/textCientificos"
+        app:layout_constraintEnd_toEndOf="@+id/imgLiteratura"
+        app:layout_constraintStart_toStartOf="@+id/imgLiteratura"
         app:layout_constraintTop_toBottomOf="@+id/imgLiteratura" />
 
     <Button
@@ -90,7 +82,6 @@
         android:drawableStart="@drawable/ic_aventura_90"
         android:paddingStart="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgLiteratura"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
@@ -98,43 +89,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="5dp"
         android:text="@string/stringAventura"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textLiteratura"
+        app:layout_constraintEnd_toEndOf="@+id/imgAventura"
+        app:layout_constraintStart_toStartOf="@+id/imgAventura"
         app:layout_constraintTop_toBottomOf="@+id/imgAventura" />
 
     <Button
         android:id="@+id/imgTerror"
         android:layout_width="100dp"
         android:layout_height="110dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="42dp"
         android:background="@drawable/input_button"
-        android:drawableStart="@drawable/ic_aventura_90"
-        android:paddingStart="5dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="282dp" />
+        android:drawableStart="@drawable/ic_terror_90"
+        android:paddingStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgCientificos" />
 
     <TextView
         android:id="@+id/textTerror"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/stringTerror"
+        android:layout_marginTop="5dp"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="46dp"
-        tools:layout_editor_absoluteY="402dp" />
+        app:layout_constraintEnd_toEndOf="@+id/imgTerror"
+        app:layout_constraintStart_toStartOf="@+id/imgTerror"
+        app:layout_constraintTop_toBottomOf="@+id/imgTerror" />
 
     <Button
         android:id="@+id/imgMisterio"
         android:layout_width="100dp"
         android:layout_height="110dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginStart="24dp"
         android:background="@drawable/input_button"
         android:drawableStart="@drawable/ic_misterio_90"
         android:paddingStart="5dp"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="282dp" />
+        app:layout_constraintStart_toEndOf="@+id/imgTerror"
+        app:layout_constraintTop_toBottomOf="@+id/imgLiteratura" />
 
     <TextView
         android:id="@+id/textMisterio"
@@ -142,33 +137,49 @@
         android:layout_height="wrap_content"
         android:text="@string/stringMisterio"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="150dp"
-        tools:layout_editor_absoluteY="402dp" />
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/imgMisterio"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/imgMisterio"
+        app:layout_constraintTop_toBottomOf="@+id/imgMisterio" />
 
     <Button
-        android:id="@+id/imgRecreativos"
+        android:id="@+id/imgInfantiles"
         android:layout_width="100dp"
         android:layout_height="110dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="32dp"
+        android:drawableStart="@drawable/ic_infantiles_90"
+        android:paddingStart="2dp"
         android:background="@drawable/input_button"
-        tools:layout_editor_absoluteX="269dp"
-        tools:layout_editor_absoluteY="282dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imgMisterio"
+        app:layout_constraintTop_toBottomOf="@+id/imgAventura" />
 
     <TextView
-        android:id="@+id/textRecreativos"
+        android:id="@+id/textInfantiles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/stringRecreativos"
+        android:text="@string/stringInfantiles"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="294dp"
-        tools:layout_editor_absoluteY="415dp" />
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/imgInfantiles"
+        app:layout_constraintStart_toStartOf="@+id/imgInfantiles"
+        app:layout_constraintTop_toBottomOf="@+id/imgInfantiles" />
 
     <Button
         android:id="@+id/imgPoeticos"
         android:layout_width="100dp"
         android:layout_height="110dp"
+        android:layout_marginStart="32dp"
+        android:drawableStart="@drawable/ic_poesia_90"
+        android:paddingStart="5dp"
+        android:layout_marginTop="42dp"
         android:background="@drawable/input_button"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="451dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgTerror" />
 
     <TextView
         android:id="@+id/textPoeticos"
@@ -176,41 +187,58 @@
         android:layout_height="wrap_content"
         android:text="@string/stringPoeticos"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="577dp" />
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/imgPoeticos"
+        app:layout_constraintStart_toStartOf="@+id/imgPoeticos"
+        app:layout_constraintTop_toBottomOf="@+id/imgPoeticos" />
 
     <Button
         android:id="@+id/imgRomanticos"
         android:layout_width="100dp"
         android:layout_height="110dp"
+        android:drawableStart="@drawable/ic_romance_90"
+        android:paddingStart="7dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="42dp"
         android:background="@drawable/input_button"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="451dp" />
+        app:layout_constraintStart_toEndOf="@+id/imgPoeticos"
+        app:layout_constraintTop_toBottomOf="@+id/imgMisterio" />
 
     <TextView
         android:id="@+id/textRomanticos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/stringRomanticos"
+        android:layout_marginTop="5dp"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="164dp"
-        tools:layout_editor_absoluteY="577dp" />
+        app:layout_constraintEnd_toEndOf="@+id/imgRomanticos"
+        app:layout_constraintStart_toStartOf="@+id/imgRomanticos"
+        app:layout_constraintTop_toBottomOf="@+id/imgRomanticos" />
 
     <Button
         android:id="@+id/imgFiccion"
         android:layout_width="100dp"
         android:layout_height="110dp"
+        android:layout_marginStart="16dp"
+        android:drawableStart="@drawable/ic_ficcion_90"
+        android:paddingStart="5dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/input_button"
-        tools:layout_editor_absoluteX="269dp"
-        tools:layout_editor_absoluteY="458dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imgRomanticos"
+        app:layout_constraintTop_toBottomOf="@+id/imgInfantiles" />
 
     <TextView
         android:id="@+id/textFiccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/stringFiccion"
+        android:layout_marginTop="5dp"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="294dp"
-        tools:layout_editor_absoluteY="577dp" />
+        app:layout_constraintEnd_toEndOf="@+id/imgFiccion"
+        app:layout_constraintStart_toStartOf="@+id/imgFiccion"
+        app:layout_constraintTop_toBottomOf="@+id/imgFiccion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

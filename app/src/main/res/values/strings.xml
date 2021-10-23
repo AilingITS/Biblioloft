@@ -50,5 +50,7 @@
     <string name="stringPoeticos">Poeticos</string>
     <string name="stringRomanticos">Romanticos</string>
     <string name="stringFiccion">Ficción</string>
+    <string name="stringInfantiles">Infantiles</string>
+    <string name="stringRegistro">Registro de libros</string>
 
 </resources>
