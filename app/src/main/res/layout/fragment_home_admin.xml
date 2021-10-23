@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:paddingTop="30dp"
+        android:text="@string/agregarLibro"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/imgCientificos"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/input_button"
+        android:drawableStart="@drawable/ic_cientificos_90"
+        android:paddingStart="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        />
+    <TextView
+        android:id="@+id/textCientificos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/stringCientificos"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imgCientificos"
+        app:layout_constraintStart_toStartOf="@+id/imgCientificos"
+        app:layout_constraintTop_toBottomOf="@+id/imgCientificos" />
+
+    <Button
+        android:id="@+id/imgLiteratura"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/input_button"
+        android:drawableStart="@drawable/ic_literatura_90"
+        android:paddingStart="7dp"
+        app:layout_constraintStart_toEndOf="@+id/imgCientificos"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textLiteratura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/stringLiteratura"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imgLiteratura"
+        app:layout_constraintStart_toStartOf="@+id/imgLiteratura"
+        app:layout_constraintTop_toBottomOf="@+id/imgLiteratura" />
+
+    <Button
+        android:id="@+id/imgAventura"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/input_button"
+        android:drawableStart="@drawable/ic_aventura_90"
+        android:paddingStart="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgLiteratura"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textAventura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/stringAventura"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imgAventura"
+        app:layout_constraintStart_toStartOf="@+id/imgAventura"
+        app:layout_constraintTop_toBottomOf="@+id/imgAventura" />
+
+    <Button
+        android:id="@+id/imgTerror"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/input_button"
+        android:drawableStart="@drawable/ic_terror_90"
+        android:paddingStart="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgCientificos" />
+
+    <TextView
+        android:id="@+id/textTerror"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/stringTerror"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imgTerror"
+        app:layout_constraintStart_toStartOf="@+id/imgTerror"
+        app:layout_constraintTop_toBottomOf="@+id/imgTerror" />
+
+    <Button
+        android:id="@+id/imgMisterio"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp"
+        android:drawableStart="@drawable/ic_misterio_90"
+        android:paddingStart="5dp"
+        android:background="@drawable/input_button"
+        app:layout_constraintStart_toEndOf="@+id/imgTerror"
+        app:layout_constraintTop_toBottomOf="@+id/imgLiteratura" />
+
+    <TextView
+        android:id="@+id/textMisterio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/stringMisterio"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imgMisterio"
+        app:layout_constraintStart_toStartOf="@+id/imgMisterio"
+        app:layout_constraintTop_toBottomOf="@+id/imgMisterio" />
+
+    <Button
+        android:id="@+id/imgRecreativos"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/input_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgLiteratura"
+        app:layout_constraintTop_toBottomOf="@+id/imgAventura" />
+
+    <TextView
+        android:id="@+id/textRecreativos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/stringRecreativos"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imgRecreativos"
+        app:layout_constraintStart_toStartOf="@+id/imgRecreativos"
+        app:layout_constraintTop_toBottomOf="@+id/imgRecreativos" />
+
+    <Button
+        android:id="@+id/imgPoeticos"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/input_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgTerror" />
+
+    <TextView
+        android:id="@+id/textPoeticos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/stringPoeticos"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imgPoeticos"
+        app:layout_constraintStart_toStartOf="@+id/imgPoeticos"
+        app:layout_constraintTop_toBottomOf="@+id/imgPoeticos" />
+
+    <Button
+        android:id="@+id/imgRomanticos"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/input_button"
+        app:layout_constraintStart_toEndOf="@+id/imgTerror"
+        app:layout_constraintTop_toBottomOf="@+id/imgMisterio" />
+
+    <TextView
+        android:id="@+id/textRomanticos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/stringRomanticos"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imgRomanticos"
+        app:layout_constraintStart_toStartOf="@+id/imgRomanticos"
+        app:layout_constraintTop_toBottomOf="@+id/imgRomanticos" />
+
+    <Button
+        android:id="@+id/imgFiccion"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/input_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgLiteratura"
+        app:layout_constraintTop_toBottomOf="@+id/imgRecreativos" />
+
+    <TextView
+        android:id="@+id/textFiccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/stringFiccion"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/imgFiccion"
+        app:layout_constraintStart_toStartOf="@+id/imgFiccion"
+        app:layout_constraintTop_toBottomOf="@+id/imgFiccion" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
