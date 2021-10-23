@@ -59,7 +59,8 @@ public class ProfileFragment extends Fragment {
 
     private View vista;
     private ImageView profile_image;
-    private EditText profile_user, profile_mail;
+    private EditText profile_mail;
+    private TextView profile_user;
     private Button profile_upgrade;
 
     private StorageReference ImagesRef;
@@ -122,7 +123,7 @@ public class ProfileFragment extends Fragment {
         return vista;
     }
 
-    private void userInfoDisplay(final EditText perfil_usuario, final EditText perfil_mail, final ImageView fotoperfil) {
+    private void userInfoDisplay(final TextView perfil_usuario, final EditText perfil_mail, final ImageView fotoperfil) {
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(Prevalent.currentOnlineUser.getNombre());
 
         userRef.addValueEventListener(new ValueEventListener() {

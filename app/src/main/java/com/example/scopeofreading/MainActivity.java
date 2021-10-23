@@ -25,8 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
-import io.paperdb.Paper;
-
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navigationView;

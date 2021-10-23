@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                                 //La siguiente linea guarda al usuario en el prevalent para mostrar los datos en perfil
                                 Prevalent.currentOnlineUser = usersData;
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
                             } else {
                                 Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
                                 lo_password.requestFocus();
@@ -140,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
                                 lo_password.requestFocus();
+                                finish();
                             }
                         } else {
                             Toast.makeText(LoginActivity.this, "El usuario es incorrecto", Toast.LENGTH_SHORT).show();
