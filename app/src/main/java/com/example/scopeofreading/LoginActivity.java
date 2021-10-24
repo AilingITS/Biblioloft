@@ -138,10 +138,10 @@ public class LoginActivity extends AppCompatActivity {
                         if(adminData.getNombre().equals(nombre)){
                             if(adminData.getContraseña().equals(password)){
                                 startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                                finish();
                             } else {
                                 Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
                                 lo_password.requestFocus();
-                                finish();
                             }
                         } else {
                             Toast.makeText(LoginActivity.this, "El usuario es incorrecto", Toast.LENGTH_SHORT).show();
@@ -172,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (usersData.getContraseña().equals(password)) {
                             Prevalent.currentOnlineUser = usersData;
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
                         } else {
                             Toast.makeText(LoginActivity.this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
                             lo_password.requestFocus();
