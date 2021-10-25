@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentsAdmin.HomeAdminFragment"
-    android:layout_marginBottom="72dp">
+    tools:context=".fragmentsAdmin.RegistroLibrosFragment"
+    android:layout_marginBottom="92dp">
 
     <ScrollView
         android:layout_width="match_parent"
