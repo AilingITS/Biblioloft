@@ -103,7 +103,7 @@ public class agregarAventuraFragment extends Fragment {
         btn_añadirLibro = (Button) vista.findViewById(R.id.btn_añadirLibro);
         btn_añadirLibro.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){createLibro(); }
+            public void onClick(View v){ValidateProductData();}
         });
         btn_agregar_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,13 +112,72 @@ public class agregarAventuraFragment extends Fragment {
 
         return vista;
     }
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.body_container,fragment);
-        fragmentTransaction.commit();
+
+    //Función cuando el usuario da clic en el boton actualizar datos
+    private void ValidateProductData() {
+        //Obtenemos los datos que ingreso el usuario
+        String nombre = nombreLibro.getText().toString();
+        String descripcion = descripcionLibro.getText().toString();
+        String paginas = paginasLibro.getText().toString();
+
+        //Condiciones para verificar que los datos esten correctos
+        if (ImageUri == null) { //En caso que el usuario modifico datos pero no su imagen se llama a la sig función solo para actualizar datos
+            SaveInfoToDatabasewithoutImage();
+        } else if (TextUtils.isEmpty(nombre)){
+            nombreLibro.setError("Ingrese el nombre de la comida");
+            nombreLibro.requestFocus();
+        } else if(TextUtils.isEmpty(descripcion)){
+            descripcionLibro.setError("Ingrese los ingredientes de la comida");
+            descripcionLibro.requestFocus();
+        } else if(TextUtils.isEmpty(paginas)){
+            paginasLibro.setError("Ingrese las calorias de la comida");
+            paginasLibro.requestFocus();
+        }else {
+            Calendar calendar = Calendar.getInstance();
+            //SimpleDateFormat currentDate = new SimpleDateFormat(" dd MM, yyyy");
+            SimpleDateFormat currentDate = new SimpleDateFormat("MM dd, yyyy");
+            saveCurrentDate = currentDate.format(calendar.getTime());
+            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
+            saveCurrentTime = currentTime.format(calendar.getTime());
+            libroID = saveCurrentDate + saveCurrentTime;
+
+            StorageReference fileRef = ImagesRef.child(libroID + ".jpg");
+            final UploadTask uploadTask = fileRef.putFile(ImageUri);
+
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull @NotNull Exception e) {
+                    String message = e.toString();
+                    Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull @NotNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+                            downloadImageUrl = fileRef.getDownloadUrl().toString();
+                            return fileRef.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                downloadImageUrl = task.getResult().toString();
+                                SaveInfoToDatabase(); //Función para actualizar datos e imagen de perfil
+                            }
+                        }
+                    });
+                }
+            });
+        }
     }
-    public void createLibro(){
+
+    // Actualiza los datos menos la foto de perfil
+    private void SaveInfoToDatabasewithoutImage () {
         Calendar calendar = Calendar.getInstance();
         //SimpleDateFormat currentDate = new SimpleDateFormat(" dd MM, yyyy");
         SimpleDateFormat currentDate = new SimpleDateFormat("MM dd, yyyy");
@@ -127,36 +186,27 @@ public class agregarAventuraFragment extends Fragment {
         saveCurrentTime = currentTime.format(calendar.getTime());
         libroID = saveCurrentDate + saveCurrentTime;
 
-        StorageReference fileRef = ImagesRef.child(libroID + ".jpg");
-        final UploadTask uploadTask = fileRef.putFile(ImageUri);
+        String nombre = nombreLibro.getText().toString();
+        String descripcion = descripcionLibro.getText().toString();
+        String paginas = paginasLibro.getText().toString();
 
-        uploadTask.addOnFailureListener(new OnFailureListener() {
+        Map<String, Object> infoMap = new HashMap<>();
+        infoMap.put("libroID", libroID);
+        infoMap.put("tipoLibro", "Aventura");
+        infoMap.put("nombreLibro", nombre);
+        infoMap.put("descripcionLibro", descripcion);
+        infoMap.put("paginasLibro", paginas);
+
+        adminRef.child("aventura").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onFailure(@NonNull @NotNull Exception e) {
-                String message = e.toString();
-                Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull @NotNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()){
-                            throw task.getException();
-                        }
-                        downloadImageUrl = fileRef.getDownloadUrl().toString();
-                        return fileRef.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull @NotNull Task<Uri> task) {
-                        if(task.isSuccessful()){
-                            downloadImageUrl = task.getResult().toString();
-                            SaveInfoToDatabase(); //Función para actualizar datos e imagen de perfil
-                        }
-                    }
-                });
+            public void onComplete(@NonNull @NotNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
+                    replaceFragment(new HomeAdminFragment());
+                } else {
+                    String message = task.getException().toString();
+                    Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -220,5 +270,12 @@ public class agregarAventuraFragment extends Fragment {
             ImageUri = data.getData();
             btn_agregar_img.setImageURI(ImageUri);
         }
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.body_container,fragment);
+        fragmentTransaction.commit();
     }
 }
