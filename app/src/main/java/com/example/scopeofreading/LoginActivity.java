@@ -108,9 +108,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if(seleccion.equals("Usuario")) {
-                    if (snapshot.child(parentdbName).child(nombre).exists()) {
-                        Users usersData = snapshot.child(parentdbName).child(nombre).getValue(Users.class);
-                        if (usersData.getNombre().equals(nombre)) {
+                    String nameCheck = nombre.replace(".", "1");
+                    if (snapshot.child(parentdbName).child(nameCheck).exists()) {
+                        Users usersData = snapshot.child(parentdbName).child(nameCheck).getValue(Users.class);
+                        if (usersData.getNombre().equals(nameCheck)) {
                             if (usersData.getContraseña().equals(password)) {
                                 //Guardamos los datos del usuario cuando inicia sesión
                                 Paper.book().write(Prevalent.UserNameKey, nombre);
@@ -132,9 +133,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
                 if(seleccion.equals("Administrador")){
-                    if(snapshot.child("admin").child(nombre).exists()){
-                        Admin adminData = snapshot.child("admin").child(nombre).getValue(Admin.class);
-                        if(adminData.getNombre().equals(nombre)){
+                    String nameCheck = nombre.replace(".", "1");
+                    if(snapshot.child("admin").child(nameCheck).exists()){
+                        Admin adminData = snapshot.child("admin").child(nameCheck).getValue(Admin.class);
+                        if(adminData.getNombre().equals(nameCheck)){
                             if(adminData.getContraseña().equals(password)){
                                 //Guardamos los datos del administrador cuando inicia sesión
                                 Paper.book().write(Prevalent.AdminNameKey, nombre);
