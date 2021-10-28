@@ -48,7 +48,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/datosLibro"/>
 
                 <TextView
-                    android:id="@+id/tituloAventura"
+                    android:id="@+id/tituloMisterio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/stringMisterio"
