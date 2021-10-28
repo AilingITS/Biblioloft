@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import com.example.scopeofreading.LoginActivity;
 import com.example.scopeofreading.MainActivity;
 import com.example.scopeofreading.R;
 import com.example.scopeofreading.RegisterActivity;
+import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarCientificosFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 import io.paperdb.Paper;
@@ -28,7 +31,7 @@ public class SettingsFragment extends Fragment {
     private String mParam2;
 
     View vista;
-    Button btncerrarSesion;
+    Button btncerrarSesion, btn_modificar_datos;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -61,6 +64,8 @@ public class SettingsFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_settings, container, false);
 
         btncerrarSesion = (Button) vista.findViewById(R.id.btncerrarSesion);
+        btn_modificar_datos = (Button) vista.findViewById(R.id.btn_modificar_datos);
+
         btncerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +76,19 @@ public class SettingsFragment extends Fragment {
                 Toast.makeText(getContext(), "Cerrando sesión...", Toast.LENGTH_SHORT).show();
             }
         });
+
+        btn_modificar_datos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragment(new EditarPerfilFragment());
+            }
+        });
         return vista;
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.body_container,fragment);
+        fragmentTransaction.commit();
     }
 }

@@ -32,6 +32,8 @@
 
     <!-- Strings settings -->
     <string name="ModificarPerfil">Modificar Perfil</string>
+    <string name="editarDatosString">Editar los datos del Perfil</string>
+    <string name="guardarCambiosString">Guardar cambios</string>
     <string name="TemaOscuro">TEMA OSCURO</string>
     <string name="Español_English">ESPAÑOL/ENGLISH</string>
 
@@ -52,6 +54,8 @@
     <string name="stringFiccion">Ficción</string>
     <string name="stringInfantiles">Infantiles</string>
     <string name="stringRegistro">Registro de libros</string>
+
+
 
 
 </resources>

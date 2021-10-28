@@ -12,6 +12,7 @@ import com.example.scopeofreading.fragments.HomeFragment;
 import com.example.scopeofreading.fragments.ProfileFragment;
 import com.example.scopeofreading.fragments.SettingsFragment;
 import com.example.scopeofreading.fragmentsAdmin.HomeAdminFragment;
+import com.example.scopeofreading.fragmentsAdmin.ProfileAdminFragment;
 import com.example.scopeofreading.fragmentsAdmin.RegistroLibrosFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -44,7 +45,7 @@ public class AdminActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_profile:
-                        fragment = new ProfileFragment();
+                        fragment = new ProfileAdminFragment();
                         break;
 
                     case R.id.nav_settings:
