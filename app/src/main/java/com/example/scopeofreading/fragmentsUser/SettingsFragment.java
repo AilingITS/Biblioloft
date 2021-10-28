@@ -1,4 +1,4 @@
-package com.example.scopeofreading.fragments;
+package com.example.scopeofreading.fragmentsUser;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.scopeofreading.LoginActivity;
-import com.example.scopeofreading.MainActivity;
 import com.example.scopeofreading.R;
-import com.example.scopeofreading.RegisterActivity;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarCientificosFragment;
-import com.google.firebase.auth.FirebaseAuth;
 
 import io.paperdb.Paper;
 

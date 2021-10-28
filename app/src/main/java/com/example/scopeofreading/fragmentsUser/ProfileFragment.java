@@ -1,4 +1,4 @@
-package com.example.scopeofreading.fragments;
+package com.example.scopeofreading.fragmentsUser;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -19,36 +19,26 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.scopeofreading.LoginActivity;
-import com.example.scopeofreading.MainActivity;
 import com.example.scopeofreading.Prevalent.Prevalent;
 import com.example.scopeofreading.R;
-import com.example.scopeofreading.firebase.Admin;
-import com.example.scopeofreading.firebase.Users;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.Map;
-
-import io.paperdb.Paper;
 
 public class ProfileFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";

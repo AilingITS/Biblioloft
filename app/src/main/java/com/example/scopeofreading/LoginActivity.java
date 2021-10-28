@@ -100,10 +100,6 @@ public class LoginActivity extends AppCompatActivity {
     private void AllowAccessToAccount(String nombre, String password) {
         String seleccion = spinner.getSelectedItem().toString();
 
-        //Guardamos los datos del usuario cuando inicia sesión
-        Paper.book().write(Prevalent.UserNameKey, nombre);
-        Paper.book().write(Prevalent.UserPasswordKey, password);
-
         // checar que la cuenta que escriba sea de tipo usuario
         final DatabaseReference dbRef;
         dbRef = FirebaseDatabase.getInstance().getReference();
@@ -116,6 +112,9 @@ public class LoginActivity extends AppCompatActivity {
                         Users usersData = snapshot.child(parentdbName).child(nombre).getValue(Users.class);
                         if (usersData.getNombre().equals(nombre)) {
                             if (usersData.getContraseña().equals(password)) {
+                                //Guardamos los datos del usuario cuando inicia sesión
+                                Paper.book().write(Prevalent.UserNameKey, nombre);
+                                Paper.book().write(Prevalent.UserPasswordKey, password);
                                 //La siguiente linea guarda al usuario en el prevalent para mostrar los datos en perfil
                                 Prevalent.currentOnlineUser = usersData;
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -137,6 +136,11 @@ public class LoginActivity extends AppCompatActivity {
                         Admin adminData = snapshot.child("admin").child(nombre).getValue(Admin.class);
                         if(adminData.getNombre().equals(nombre)){
                             if(adminData.getContraseña().equals(password)){
+                                //Guardamos los datos del administrador cuando inicia sesión
+                                Paper.book().write(Prevalent.AdminNameKey, nombre);
+                                Paper.book().write(Prevalent.AdminPasswordKey, password);
+                                //La siguiente linea guarda al usuario en el prevalent para mostrar los datos en perfil
+                                Prevalent.currentOnlineAdmin = adminData;
                                 startActivity(new Intent(LoginActivity.this, AdminActivity.class));
                                 finish();
                             } else {

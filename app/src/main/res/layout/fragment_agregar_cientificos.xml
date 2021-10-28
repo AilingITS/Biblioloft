@@ -48,15 +48,15 @@
                     app:layout_constraintTop_toBottomOf="@+id/datosLibro"/>
 
                 <TextView
-                    android:id="@+id/tituloAventura"
+                    android:id="@+id/tituloCientifico"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/stringCientificos"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="32dp"
-                    />
+                    android:text="@string/stringCientificos"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/nombreLibro"
                     android:layout_width="match_parent"
@@ -97,6 +97,7 @@
                     android:textColorHint="@color/light_white"
                     android:textColor="@color/black"
                     android:textSize="16dp"
+                    android:inputType="number"
                     app:layout_constraintTop_toBottomOf="@+id/descripcionLibro"
                     tools:layout_editor_absoluteX="0dp" />
 

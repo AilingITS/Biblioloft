@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.scopeofreading.Prevalent.Prevalent;
 import com.example.scopeofreading.R;
 import com.example.scopeofreading.fragmentsAdmin.HomeAdminFragment;
 import com.google.android.gms.tasks.Continuation;
@@ -45,28 +46,23 @@ public class agregarAventuraFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     private String mParam1;
     private String mParam2;
 
     private View vista;
-    private String adminID;
-    private FirebaseAuth mAuth;
 
-    Button btn_añadirLibro;
     private EditText nombreLibro, descripcionLibro, paginasLibro;
+    private Button btn_añadirLibro;
+    private ImageView btn_agregar_img;
     private String libroID, saveCurrentDate, saveCurrentTime;
 
-    private DatabaseReference dbRef;
+    private DatabaseReference adminRef;
     private StorageReference ImagesRef;
 
-    private ImageView btn_agregar_libro;
     private static final int GalleryPick = 1;
     private static final int RESULT_OK = -1;
     private Uri ImageUri;
     private String downloadImageUrl;
-
-
 
     public agregarAventuraFragment() {
         // Required empty public constructor
@@ -96,22 +92,20 @@ public class agregarAventuraFragment extends Fragment {
         // Inflate the layout for this fragment
         vista = inflater.inflate(R.layout.fragment_agregar_aventura, container, false);
 
-        mAuth = FirebaseAuth.getInstance();
-        adminID = mAuth.getCurrentUser().getUid();
-        dbRef = FirebaseDatabase.getInstance().getReference().child("users").child(adminID).child("aventura");
+        adminRef = FirebaseDatabase.getInstance().getReference().child("books");
         ImagesRef = FirebaseStorage.getInstance().getReference().child("aventura");
 
         nombreLibro = vista.findViewById(R.id.nombreLibro);
         descripcionLibro = vista.findViewById(R.id.descripcionLibro);
         paginasLibro = vista.findViewById(R.id.paginasLibro);
-        btn_agregar_libro = vista.findViewById(R.id.btn_agregar_libro);
+        btn_agregar_img = vista.findViewById(R.id.btn_agregar_img);
 
         btn_añadirLibro = (Button) vista.findViewById(R.id.btn_añadirLibro);
         btn_añadirLibro.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){createLibro(); }
         });
-        btn_agregar_libro.setOnClickListener(new View.OnClickListener() {
+        btn_agregar_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { OpenGallery(); }
         });
@@ -125,8 +119,6 @@ public class agregarAventuraFragment extends Fragment {
         fragmentTransaction.commit();
     }
     public void createLibro(){
-        adminID = mAuth.getCurrentUser().getUid();
-
         Calendar calendar = Calendar.getInstance();
         //SimpleDateFormat currentDate = new SimpleDateFormat(" dd MM, yyyy");
         SimpleDateFormat currentDate = new SimpleDateFormat("MM dd, yyyy");
@@ -135,7 +127,7 @@ public class agregarAventuraFragment extends Fragment {
         saveCurrentTime = currentTime.format(calendar.getTime());
         libroID = saveCurrentDate + saveCurrentTime;
 
-        StorageReference fileRef = ImagesRef.child(adminID).child(libroID + ".jpg");
+        StorageReference fileRef = ImagesRef.child(libroID + ".jpg");
         final UploadTask uploadTask = fileRef.putFile(ImageUri);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -187,24 +179,17 @@ public class agregarAventuraFragment extends Fragment {
             paginasLibro.setError("Ingrese las calorias de la comida");
             paginasLibro.requestFocus();
         }else {
-            Calendar calendar = Calendar.getInstance();
-            //SimpleDateFormat currentDate = new SimpleDateFormat(" dd MM, yyyy");
-            SimpleDateFormat currentDate = new SimpleDateFormat("MM dd, yyyy");
-            saveCurrentDate = currentDate.format(calendar.getTime());
-            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
-            saveCurrentTime = currentTime.format(calendar.getTime());
-            libroID = saveCurrentDate + saveCurrentTime;
 
             //Map para registrar a un usuario con sus datos
-            Map<String, Object> comida = new HashMap<>();
-            comida.put("p_ID", libroID);
-            comida.put("f_tipo", "Cena");
-            comida.put("f_nombrecomida", nombre);
-            comida.put("f_ingredientes", descripcion);
-            comida.put("f_calorias", paginas);
-            comida.put("f_image", downloadImageUrl);
+            Map<String, Object> infoMap = new HashMap<>();
+            infoMap.put("libroID", libroID);
+            infoMap.put("tipoLibro", "Aventura");
+            infoMap.put("nombreLibro", nombre);
+            infoMap.put("descripcionLibro", descripcion);
+            infoMap.put("paginasLibro", paginas);
+            infoMap.put("imageLibro", downloadImageUrl);
 
-            dbRef.child(libroID).updateChildren(comida).addOnCompleteListener(new OnCompleteListener<Void>() {
+            adminRef.child("aventura").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<Void> task) {
                     if(task.isSuccessful()){
@@ -233,7 +218,7 @@ public class agregarAventuraFragment extends Fragment {
 
         if (requestCode==GalleryPick && resultCode==RESULT_OK && data!=null){
             ImageUri = data.getData();
-            btn_agregar_libro.setImageURI(ImageUri);
+            btn_agregar_img.setImageURI(ImageUri);
         }
     }
 }

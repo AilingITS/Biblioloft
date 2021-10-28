@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.scopeofreading.fragments.ChallengeFragment;
-import com.example.scopeofreading.fragments.HomeFragment;
-import com.example.scopeofreading.fragments.ProfileFragment;
-import com.example.scopeofreading.fragments.SettingsFragment;
+import com.example.scopeofreading.fragmentsUser.SettingsFragment;
 import com.example.scopeofreading.fragmentsAdmin.HomeAdminFragment;
 import com.example.scopeofreading.fragmentsAdmin.ProfileAdminFragment;
 import com.example.scopeofreading.fragmentsAdmin.RegistroLibrosFragment;

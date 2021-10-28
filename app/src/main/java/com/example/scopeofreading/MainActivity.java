@@ -4,26 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
-import com.example.scopeofreading.Prevalent.Prevalent;
-import com.example.scopeofreading.firebase.Users;
-import com.example.scopeofreading.fragments.ChallengeFragment;
-import com.example.scopeofreading.fragments.HomeFragment;
-import com.example.scopeofreading.fragments.ProfileFragment;
-import com.example.scopeofreading.fragments.SettingsFragment;
+import com.example.scopeofreading.fragmentsUser.ChallengeFragment;
+import com.example.scopeofreading.fragmentsUser.HomeFragment;
+import com.example.scopeofreading.fragmentsUser.ProfileFragment;
+import com.example.scopeofreading.fragmentsUser.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 

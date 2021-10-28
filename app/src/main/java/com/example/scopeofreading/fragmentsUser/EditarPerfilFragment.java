@@ -1,4 +1,4 @@
-package com.example.scopeofreading.fragments;
+package com.example.scopeofreading.fragmentsUser;
 
 import android.os.Bundle;
 
