@@ -193,7 +193,7 @@ public class agregarCientificosFragment extends Fragment {
         infoMap.put("descripcionLibro", descripcion);
         infoMap.put("paginasLibro", paginas);
 
-        adminRef.child("aventura").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        adminRef.child("cientifico").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -235,7 +235,7 @@ public class agregarCientificosFragment extends Fragment {
             infoMap.put("paginasLibro", paginas);
             infoMap.put("imageLibro", downloadImageUrl);
 
-            adminRef.child("aventura").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            adminRef.child("cientifico").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<Void> task) {
                     if(task.isSuccessful()){
