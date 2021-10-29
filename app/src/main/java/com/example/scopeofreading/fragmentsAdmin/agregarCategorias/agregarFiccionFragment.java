@@ -89,7 +89,7 @@ public class agregarFiccionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        vista = inflater.inflate(R.layout.fragment_agregar_cientificos, container, false);
+        vista = inflater.inflate(R.layout.fragment_agregar_ficcion, container, false);
 
         adminRef = FirebaseDatabase.getInstance().getReference().child("books");
         ImagesRef = FirebaseStorage.getInstance().getReference().child("ficcion");

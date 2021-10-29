@@ -1,6 +1,5 @@
 package com.example.scopeofreading.fragmentsAdmin;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,13 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.scopeofreading.R;
 import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarAventuraFragment;
 import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarCientificosFragment;
 import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarFiccionFragment;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarFragmentPoeticos;
+import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarPoeticosFragment;
 import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarInfantilesFragment;
 import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarLiteraturaFragment;
 import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarMisteriosFragment;
@@ -112,7 +110,7 @@ public class HomeAdminFragment extends Fragment {
         imgPoeticos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                replaceFragment(new agregarFragmentPoeticos());
+                replaceFragment(new agregarPoeticosFragment());
             }
         });
         imgRomanticos.setOnClickListener(new View.OnClickListener() {

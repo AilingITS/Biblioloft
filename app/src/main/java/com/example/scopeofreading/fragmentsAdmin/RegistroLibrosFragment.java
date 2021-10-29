@@ -12,15 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.scopeofreading.R;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarAventuraFragment;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarCientificosFragment;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarFiccionFragment;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarFragmentPoeticos;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarInfantilesFragment;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarLiteraturaFragment;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarMisteriosFragment;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarRomanticosFragment;
-import com.example.scopeofreading.fragmentsAdmin.agregarCategorias.agregarTerrorFragment;
 import com.example.scopeofreading.fragmentsAdmin.registroLibros.registroAventuraFragment;
 import com.example.scopeofreading.fragmentsAdmin.registroLibros.registroCientificosFragment;
 import com.example.scopeofreading.fragmentsAdmin.registroLibros.registroFiccionFragment;

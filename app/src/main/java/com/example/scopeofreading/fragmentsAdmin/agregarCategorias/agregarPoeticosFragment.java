@@ -40,7 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class agregarFragmentPoeticos extends Fragment {
+public class agregarPoeticosFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -63,12 +63,12 @@ public class agregarFragmentPoeticos extends Fragment {
     private Uri ImageUri;
     private String downloadImageUrl;
 
-    public agregarFragmentPoeticos() {
+    public agregarPoeticosFragment() {
         // Required empty public constructor
     }
 
-    public static agregarFragmentPoeticos newInstance(String param1, String param2) {
-        agregarFragmentPoeticos fragment = new agregarFragmentPoeticos();
+    public static agregarPoeticosFragment newInstance(String param1, String param2) {
+        agregarPoeticosFragment fragment = new agregarPoeticosFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -89,7 +89,7 @@ public class agregarFragmentPoeticos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        vista = inflater.inflate(R.layout.fragment_agregar_cientificos, container, false);
+        vista = inflater.inflate(R.layout.fragment_agregar_poeticos, container, false);
 
         adminRef = FirebaseDatabase.getInstance().getReference().child("books");
         ImagesRef = FirebaseStorage.getInstance().getReference().child("poeticos");

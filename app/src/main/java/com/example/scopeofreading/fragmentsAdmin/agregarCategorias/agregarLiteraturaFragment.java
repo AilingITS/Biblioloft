@@ -88,7 +88,7 @@ public class agregarLiteraturaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        vista = inflater.inflate(R.layout.fragment_agregar_cientificos, container, false);
+        vista = inflater.inflate(R.layout.fragment_agregar_literatura, container, false);
 
         adminRef = FirebaseDatabase.getInstance().getReference().child("books");
         ImagesRef = FirebaseStorage.getInstance().getReference().child("literatura");
@@ -103,6 +103,7 @@ public class agregarLiteraturaFragment extends Fragment {
             @Override
             public void onClick(View v){ ValidateProductData(); }
         });
+
         btn_agregar_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { OpenGallery(); }
