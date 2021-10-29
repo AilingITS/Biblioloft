@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragmentsUser.ProfileFragment">
+    tools:context="com.example.biblioloft.fragmentsUser.ProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"

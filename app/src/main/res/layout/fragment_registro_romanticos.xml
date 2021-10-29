@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentsAdmin.registroLibros.registroRomanticosFragment"
+    tools:context="com.example.biblioloft.fragmentsAdmin.registroLibros.registroRomanticosFragment"
     android:layout_marginBottom="92dp">
 
     <ScrollView

@@ -1,23 +1,24 @@
 {
   "project_info": {
     "project_number": "590206496719",
+    "firebase_url": "https://biblioloft-default-rtdb.firebaseio.com",
     "project_id": "biblioloft",
     "storage_bucket": "biblioloft.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:590206496719:android:fc1e3167b8343f0f472cba",
+        "mobilesdk_app_id": "1:590206496719:android:f326e57bce011a6e472cba",
         "android_client_info": {
-          "package_name": "com.example.scopeofreading"
+          "package_name": "com.example.biblioloft"
         }
       },
       "oauth_client": [
         {
-          "client_id": "590206496719-qrqsp6k9bed320dbrv07o76f1mpu8mjm.apps.googleusercontent.com",
+          "client_id": "590206496719-b0jgnjpvfo7b3t8r56h3loanumf2l0n5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.scopeofreading",
+            "package_name": "com.example.biblioloft",
             "certificate_hash": "141e00402c43c8c375aa1e4bbe837db11c3a03df"
           }
         },
