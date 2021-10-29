@@ -124,13 +124,13 @@ public class agregarAventuraFragment extends Fragment {
         if (ImageUri == null) { //En caso que el usuario modifico datos pero no su imagen se llama a la sig función solo para actualizar datos
             SaveInfoToDatabasewithoutImage();
         } else if (TextUtils.isEmpty(nombre)){
-            nombreLibro.setError("Ingrese el nombre de la comida");
+            nombreLibro.setError("Ingrese el nombre del libro");
             nombreLibro.requestFocus();
         } else if(TextUtils.isEmpty(descripcion)){
-            descripcionLibro.setError("Ingrese los ingredientes de la comida");
+            descripcionLibro.setError("Ingrese la descripción del libro");
             descripcionLibro.requestFocus();
         } else if(TextUtils.isEmpty(paginas)){
-            paginasLibro.setError("Ingrese las calorias de la comida");
+            paginasLibro.setError("Ingrese las paginas del libro");
             paginasLibro.requestFocus();
         }else {
             Calendar calendar = Calendar.getInstance();
@@ -220,13 +220,13 @@ public class agregarAventuraFragment extends Fragment {
 
         //Condiciones para verificar que los datos esten correctos
         if (TextUtils.isEmpty(nombre)){
-            nombreLibro.setError("Ingrese el nombre de la comida");
+            nombreLibro.setError("Ingrese el nombre del libro");
             nombreLibro.requestFocus();
         } else if(TextUtils.isEmpty(descripcion)){
-            descripcionLibro.setError("Ingrese los ingredientes de la comida");
+            descripcionLibro.setError("Ingrese la descripción del libro");
             descripcionLibro.requestFocus();
         } else if(TextUtils.isEmpty(paginas)){
-            paginasLibro.setError("Ingrese las calorias de la comida");
+            paginasLibro.setError("Ingrese las páginas del libro");
             paginasLibro.requestFocus();
         }else {
 
