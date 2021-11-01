@@ -42,10 +42,6 @@ public class AdminActivity extends AppCompatActivity {
                         fragment = new RegistroLibrosFragment();
                         break;
 
-                    case R.id.nav_profile:
-                        fragment = new ProfileAdminFragment();
-                        break;
-
                     case R.id.nav_settings:
                         fragment = new SettingsFragment();
                         break;
