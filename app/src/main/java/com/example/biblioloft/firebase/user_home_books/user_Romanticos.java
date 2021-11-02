@@ -1,6 +1,6 @@
 package com.example.biblioloft.firebase.user_home_books;
 
-public class Libro {
+public class user_Romanticos {
     String descripcionLibro, libroID, nombreLibro, paginasLibro, tipoLibro, imageLibro;
 
     public String getDescripcionLibro() {

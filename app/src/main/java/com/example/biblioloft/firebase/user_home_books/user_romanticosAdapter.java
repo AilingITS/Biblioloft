@@ -24,34 +24,34 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class libroAdapter extends RecyclerView.Adapter<libroAdapter.booksHolder>{
+public class user_romanticosAdapter extends RecyclerView.Adapter<user_romanticosAdapter.booksHolder>{
 
     Context context;
-    ArrayList<Libro> list;
+    ArrayList<user_Romanticos> list;
 
     DatabaseReference dbRef;
 
-    public libroAdapter(Context context, ArrayList<Libro> list) {
+    public user_romanticosAdapter(Context context, ArrayList<user_Romanticos> list) {
         this.context = context;
         this.list = list;
     }
 
-    public libroAdapter.booksHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public user_romanticosAdapter.booksHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_list_book_user,parent,false);
-        return new libroAdapter.booksHolder(v);
+        return new user_romanticosAdapter.booksHolder(v);
     }
 
-    public void onBindViewHolder(@NonNull @NotNull libroAdapter.booksHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull user_romanticosAdapter.booksHolder holder, int position) {
 
-        dbRef = FirebaseDatabase.getInstance().getReference().child("books").child("cientifico");
+        dbRef = FirebaseDatabase.getInstance().getReference().child("books").child("romanticos");
 
-        Libro books = list.get(position);
+        user_Romanticos books = list.get(position);
         Picasso.get().load(books.getImageLibro()).into(holder.imageLibro);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(context);
+                /*AlertDialog.Builder dialogo1 = new AlertDialog.Builder(context);
                 dialogo1.setCancelable(true);
 
                 final CharSequence[] opciones = new CharSequence[2];
@@ -85,6 +85,7 @@ public class libroAdapter extends RecyclerView.Adapter<libroAdapter.booksHolder>
                     }
                 });
                 dialogo1.show();
+                 */
             }
         });
     }

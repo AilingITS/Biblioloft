@@ -13,8 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.biblioloft.R;
-import com.example.biblioloft.firebase.user_home_books.Libro;
-import com.example.biblioloft.firebase.user_home_books.libroAdapter;
+import com.example.biblioloft.firebase.user_home_books.user_Aventura;
+import com.example.biblioloft.firebase.user_home_books.user_Cientifico;
+import com.example.biblioloft.firebase.user_home_books.user_Romanticos;
+import com.example.biblioloft.firebase.user_home_books.user_aventuraAdapter;
+import com.example.biblioloft.firebase.user_home_books.user_cientificoAdapter;
+import com.example.biblioloft.firebase.user_home_books.user_romanticosAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,11 +37,23 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private View view;
+    //Variales libros cientificos
+    RecyclerView recyclerView_cientificos;
+    DatabaseReference dbRef_cientificos;
+    user_cientificoAdapter myAdapter_cientificos;
+    ArrayList<user_Cientifico> list_cientificos;
 
-    RecyclerView recyclerView;
-    DatabaseReference dbRef;
-    libroAdapter myAdapter;
-    ArrayList<Libro> list;
+    //Variales libros aventuras
+    RecyclerView recyclerView_aventura;
+    DatabaseReference dbRef_aventura;
+    user_aventuraAdapter myAdapter_aventura;
+    ArrayList<user_Aventura> list_aventura;
+
+    //Variales libros romanticos
+    RecyclerView recyclerView_romanticos;
+    DatabaseReference dbRef_romanticos;
+    user_romanticosAdapter myAdapter_romanticos;
+    ArrayList<user_Romanticos> list_romanticos;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -66,31 +82,96 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        dbRef = FirebaseDatabase.getInstance().getReference("books").child("cientifico");
+        //SCROLL HORIZONTAL CIENTIFICOS
+        dbRef_cientificos = FirebaseDatabase.getInstance().getReference("books").child("cientifico");
 
-        recyclerView = view.findViewById(R.id.topLibros_list);
+        recyclerView_cientificos = view.findViewById(R.id.topLibros_list);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false
         );
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView_cientificos.setHasFixedSize(true);
+        recyclerView_cientificos.setItemAnimator(new DefaultItemAnimator());
+        recyclerView_cientificos.setLayoutManager(layoutManager);
 
-        list = new ArrayList<>();
-        myAdapter = new libroAdapter(getContext(), list);
-        recyclerView.setAdapter(myAdapter);
+        list_cientificos = new ArrayList<>();
+        myAdapter_cientificos = new user_cientificoAdapter(getContext(), list_cientificos);
+        recyclerView_cientificos.setAdapter(myAdapter_cientificos);
 
-        dbRef.addValueEventListener(new ValueEventListener() {
+        dbRef_cientificos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Libro books = dataSnapshot.getValue(Libro.class);
-                    list.add(books);
+                    user_Cientifico books = dataSnapshot.getValue(user_Cientifico.class);
+                    list_cientificos.add(books);
                 }
-                myAdapter.notifyDataSetChanged();
+                myAdapter_cientificos.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+        });
+
+        //SCROLL HORIZONTAL AVENTURAS
+        dbRef_aventura = FirebaseDatabase.getInstance().getReference("books").child("aventura");
+
+        recyclerView_aventura = view.findViewById(R.id.aventuraLibros_List);
+
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(
+                view.getContext(), LinearLayoutManager.HORIZONTAL, false
+        );
+
+        recyclerView_aventura.setHasFixedSize(true);
+        recyclerView_aventura.setItemAnimator(new DefaultItemAnimator());
+        recyclerView_aventura.setLayoutManager(layoutManager2);
+
+        list_aventura = new ArrayList<>();
+        myAdapter_aventura = new user_aventuraAdapter(getContext(), list_aventura);
+        recyclerView_aventura.setAdapter(myAdapter_aventura);
+
+        dbRef_aventura.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    user_Aventura books = dataSnapshot.getValue(user_Aventura.class);
+                    list_aventura.add(books);
+                }
+                myAdapter_aventura.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+        });
+
+        //SCROLL HORIZONTAL ROMANTICOS
+        dbRef_romanticos = FirebaseDatabase.getInstance().getReference("books").child("romanticos");
+
+        recyclerView_romanticos = view.findViewById(R.id.romanticosLibros_List);
+
+        LinearLayoutManager layoutManager3 = new LinearLayoutManager(
+                view.getContext(), LinearLayoutManager.HORIZONTAL, false
+        );
+
+        recyclerView_romanticos.setHasFixedSize(true);
+        recyclerView_romanticos.setItemAnimator(new DefaultItemAnimator());
+        recyclerView_romanticos.setLayoutManager(layoutManager3);
+
+        list_romanticos = new ArrayList<>();
+        myAdapter_romanticos = new user_romanticosAdapter(getContext(), list_romanticos);
+        recyclerView_romanticos.setAdapter(myAdapter_romanticos);
+
+        dbRef_romanticos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    user_Romanticos books = dataSnapshot.getValue(user_Romanticos.class);
+                    list_romanticos.add(books);
+                }
+                myAdapter_romanticos.notifyDataSetChanged();
             }
 
             @Override
