@@ -1,4 +1,4 @@
-package com.example.biblioloft.firebase.fb_user_books;
+package com.example.biblioloft.firebase.admin_registro_books;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.biblioloft.R;
-import com.example.biblioloft.firebase.fbRegistroLibros.Cientifico;
-import com.example.biblioloft.firebase.fbRegistroLibros.cientificoAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -27,28 +25,32 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class libroAdapter extends RecyclerView.Adapter<libroAdapter.booksHolder>{
+public class romanticosAdapter extends RecyclerView.Adapter<romanticosAdapter.booksHolder>{
 
     Context context;
-    ArrayList<Libro> list;
+    ArrayList<Romanticos> list;
 
     DatabaseReference dbRef;
 
-    public libroAdapter(Context context, ArrayList<Libro> list) {
+    public romanticosAdapter(Context context, ArrayList<Romanticos> list) {
         this.context = context;
         this.list = list;
     }
 
-    public libroAdapter.booksHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_list_book_user,parent,false);
-        return new libroAdapter.booksHolder(v);
+    public romanticosAdapter.booksHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.item_list_books,parent,false);
+        return new romanticosAdapter.booksHolder(v);
     }
 
-    public void onBindViewHolder(@NonNull @NotNull libroAdapter.booksHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull romanticosAdapter.booksHolder holder, int position) {
 
-        dbRef = FirebaseDatabase.getInstance().getReference().child("books").child("cientifico");
+        dbRef = FirebaseDatabase.getInstance().getReference().child("books").child("romanticos");
 
-        Libro books = list.get(position);
+        Romanticos books = list.get(position);
+        holder.tipoLibro.setText(books.getTipoLibro());
+        holder.nombreLibro.setText(books.getNombreLibro());
+        holder.descripcionLibro.setText(books.getDescripcionLibro());
+        holder.paginasLibro.setText(books.getPaginasLibro());
         Picasso.get().load(books.getImageLibro()).into(holder.imageLibro);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -99,11 +101,16 @@ public class libroAdapter extends RecyclerView.Adapter<libroAdapter.booksHolder>
 
     public static class booksHolder extends RecyclerView.ViewHolder{
 
+        TextView tipoLibro, nombreLibro, descripcionLibro, paginasLibro;
         ImageView imageLibro;
 
         public booksHolder(View itemView){
             super(itemView);
 
+            tipoLibro = itemView.findViewById(R.id.item_tipo);
+            nombreLibro = itemView.findViewById(R.id.item_nombreLibro);
+            descripcionLibro = itemView.findViewById(R.id.item_descripcionLibro);
+            paginasLibro = itemView.findViewById(R.id.item_paginasLibro);
             imageLibro = itemView.findViewById(R.id.item_imagen);
         }
     }

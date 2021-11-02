@@ -1,4 +1,4 @@
-package com.example.biblioloft.firebase.fbRegistroLibros;
+package com.example.biblioloft.firebase.admin_registro_books;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,28 +25,28 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class misterioAdapter extends RecyclerView.Adapter<misterioAdapter.booksHolder>{
+public class aventuraAdapter extends RecyclerView.Adapter<aventuraAdapter.booksHolder>{
 
     Context context;
-    ArrayList<Misterio> list;
+    ArrayList<Aventura> list;
 
     DatabaseReference dbRef;
 
-    public misterioAdapter(Context context, ArrayList<Misterio> list) {
+    public aventuraAdapter(Context context, ArrayList<Aventura> list) {
         this.context = context;
         this.list = list;
     }
 
-    public misterioAdapter.booksHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public aventuraAdapter.booksHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_list_books,parent,false);
-        return new misterioAdapter.booksHolder(v);
+        return new aventuraAdapter.booksHolder(v);
     }
 
-    public void onBindViewHolder(@NonNull @NotNull misterioAdapter.booksHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull aventuraAdapter.booksHolder holder, int position) {
 
-        dbRef = FirebaseDatabase.getInstance().getReference().child("books").child("misterio");
+        dbRef = FirebaseDatabase.getInstance().getReference().child("books").child("aventura");
 
-        Misterio books = list.get(position);
+        Aventura books = list.get(position);
         holder.tipoLibro.setText(books.getTipoLibro());
         holder.nombreLibro.setText(books.getNombreLibro());
         holder.descripcionLibro.setText(books.getDescripcionLibro());

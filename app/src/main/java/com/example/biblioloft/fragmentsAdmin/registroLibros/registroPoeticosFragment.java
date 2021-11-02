@@ -12,12 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.biblioloft.R;
-import com.example.biblioloft.firebase.fbRegistroLibros.Literatura;
-import com.example.biblioloft.firebase.fbRegistroLibros.Misterio;
-import com.example.biblioloft.firebase.fbRegistroLibros.Poeticos;
-import com.example.biblioloft.firebase.fbRegistroLibros.literaturaAdapter;
-import com.example.biblioloft.firebase.fbRegistroLibros.misterioAdapter;
-import com.example.biblioloft.firebase.fbRegistroLibros.poeticosAdapter;
+import com.example.biblioloft.firebase.admin_registro_books.Poeticos;
+import com.example.biblioloft.firebase.admin_registro_books.poeticosAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

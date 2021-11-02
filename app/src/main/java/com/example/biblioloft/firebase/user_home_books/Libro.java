@@ -1,6 +1,6 @@
-package com.example.biblioloft.firebase.fbRegistroLibros;
+package com.example.biblioloft.firebase.user_home_books;
 
-public class Aventura {
+public class Libro {
     String descripcionLibro, libroID, nombreLibro, paginasLibro, tipoLibro, imageLibro;
 
     public String getDescripcionLibro() {

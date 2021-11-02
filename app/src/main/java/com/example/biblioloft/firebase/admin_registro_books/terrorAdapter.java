@@ -1,4 +1,4 @@
-package com.example.biblioloft.firebase.fbRegistroLibros;
+package com.example.biblioloft.firebase.admin_registro_books;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,28 +25,28 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ficcionAdapter extends RecyclerView.Adapter<ficcionAdapter.booksHolder>{
+public class terrorAdapter extends RecyclerView.Adapter<terrorAdapter.booksHolder>{
 
     Context context;
-    ArrayList<Ficcion> list;
+    ArrayList<Terror> list;
 
     DatabaseReference dbRef;
 
-    public ficcionAdapter(Context context, ArrayList<Ficcion> list) {
+    public terrorAdapter(Context context, ArrayList<Terror> list) {
         this.context = context;
         this.list = list;
     }
 
-    public ficcionAdapter.booksHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public terrorAdapter.booksHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item_list_books,parent,false);
-        return new ficcionAdapter.booksHolder(v);
+        return new terrorAdapter.booksHolder(v);
     }
 
-    public void onBindViewHolder(@NonNull @NotNull ficcionAdapter.booksHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull terrorAdapter.booksHolder holder, int position) {
 
-        dbRef = FirebaseDatabase.getInstance().getReference().child("books").child("ficcion");
+        dbRef = FirebaseDatabase.getInstance().getReference().child("books").child("terror");
 
-        Ficcion books = list.get(position);
+        Terror books = list.get(position);
         holder.tipoLibro.setText(books.getTipoLibro());
         holder.nombreLibro.setText(books.getNombreLibro());
         holder.descripcionLibro.setText(books.getDescripcionLibro());
@@ -115,4 +115,3 @@ public class ficcionAdapter extends RecyclerView.Adapter<ficcionAdapter.booksHol
         }
     }
 }
-

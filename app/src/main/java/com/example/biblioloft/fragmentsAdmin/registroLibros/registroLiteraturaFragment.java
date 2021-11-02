@@ -12,10 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.biblioloft.R;
-import com.example.biblioloft.firebase.fbRegistroLibros.Ficcion;
-import com.example.biblioloft.firebase.fbRegistroLibros.Literatura;
-import com.example.biblioloft.firebase.fbRegistroLibros.ficcionAdapter;
-import com.example.biblioloft.firebase.fbRegistroLibros.literaturaAdapter;
+import com.example.biblioloft.firebase.admin_registro_books.Literatura;
+import com.example.biblioloft.firebase.admin_registro_books.literaturaAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

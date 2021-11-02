@@ -13,10 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.biblioloft.R;
-import com.example.biblioloft.firebase.fbRegistroLibros.Cientifico;
-import com.example.biblioloft.firebase.fbRegistroLibros.cientificoAdapter;
-import com.example.biblioloft.firebase.fb_user_books.Libro;
-import com.example.biblioloft.firebase.fb_user_books.libroAdapter;
+import com.example.biblioloft.firebase.user_home_books.Libro;
+import com.example.biblioloft.firebase.user_home_books.libroAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
