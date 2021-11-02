@@ -56,8 +56,6 @@
     <string name="stringRegistro">Registro de libros</string>
     <string name="stringError">Error</string>
     <string name="stringCambiosGuardadosCorrectamente">Cambios guardados correctamente</string>
-
-
-
+    <string name="stringGuardarCambios">Guardar cambios</string>
 
 </resources>
