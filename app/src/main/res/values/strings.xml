@@ -14,7 +14,7 @@
     <!-- Strings Register -->
     <string name="re_registrate">Regístrate</string>
     <string name="home_text">Inicio</string>
-    <string name="challenge_text">Desafíos</string>
+    <string name="text_ProgramarSesion">Programar sesión</string>
     <string name="profile_text">Perfil</string>
     <string name="setting_text">Configuración</string>
     <string name="confPassword_text">Confirmar contraseña</string>
@@ -37,6 +37,10 @@
     <string name="TemaOscuro">TEMA OSCURO</string>
     <string name="Español_English">ESPAÑOL/ENGLISH</string>
 
+    <!-- Strings user -->
+    <string name="programar_hora">La hora seleccionada es:</string>
+    <string name="programar_cambiar_hora">Cambiar hora</string>
+
     <!-- Strings admin -->
     <string name="agregarLibro">Agregar Libro</string>
     <string name="datosLibro">Datos del libro</string>
@@ -57,5 +61,8 @@
     <string name="stringError">Error</string>
     <string name="stringCambiosGuardadosCorrectamente">Cambios guardados correctamente</string>
     <string name="stringGuardarCambios">Guardar cambios</string>
+
+    <string name="changed_to">Notificación cambiada a las %s</string>
+    <string name="new_notification">Nueva notificación</string>
 
 </resources>

@@ -7,9 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.biblioloft.fragmentsUser.ChallengeFragment;
+import com.example.biblioloft.fragmentsUser.ProgramarSesionFragment;
 import com.example.biblioloft.fragmentsUser.ProfileFragment;
-import com.example.biblioloft.R;
 import com.example.biblioloft.fragmentsUser.HomeFragment;
 import com.example.biblioloft.fragmentsUser.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_challenge:
-                        fragment = new ChallengeFragment();
+                        fragment = new ProgramarSesionFragment();
                         break;
 
                     case R.id.nav_profile:
