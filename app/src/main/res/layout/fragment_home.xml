@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:layout_marginBottom="75dp"
     tools:context="com.example.biblioloft.fragmentsUser.HomeFragment">
 
         <ScrollView
@@ -19,22 +18,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="wrap_content"
+                        <androidx.appcompat.widget.SearchView
+                            android:id="@+id/home_search"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            app:iconifiedByDefault="false"
+                            app:queryHint="Buscar libro"
                             android:layout_marginStart="32dp"
                             android:layout_marginTop="32dp"
                             android:layout_marginEnd="32dp"
-                            android:text="@string/home_text"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="30sp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -229,6 +223,7 @@
                             android:id="@+id/terrorLibros_List"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingBottom="70dp"
                             android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
