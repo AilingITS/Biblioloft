@@ -13,7 +13,7 @@
 
     <!-- Strings Register -->
     <string name="re_registrate">Regístrate</string>
-    <string name="home_text">Inicio</string>
+    <string name="home_text">Biblioteca</string>
     <string name="text_ProgramarSesion">Programar sesión</string>
     <string name="profile_text">Perfil</string>
     <string name="setting_text">Configuración</string>
@@ -40,11 +40,13 @@
     <!-- Strings user -->
     <string name="programar_hora">La hora seleccionada es:</string>
     <string name="programar_cambiar_hora">Cambiar hora</string>
+    <string name="home_BuscarMas">Buscar mas</string>
 
     <!-- Strings admin -->
     <string name="agregarLibro">Agregar Libro</string>
     <string name="datosLibro">Datos del libro</string>
     <string name="nombreLibro">Nombre del libro</string>
+    <string name="autorLibro">Nombre del autor</string>
     <string name="descripcionLibro">Descripción del libro</string>
     <string name="paginasLibro">Páginas del libro</string>
     <string name="stringCientificos">Cientificos</string>

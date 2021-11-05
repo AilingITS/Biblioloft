@@ -201,8 +201,20 @@ public class agregarRomanticosFragment extends Fragment {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                    replaceFragment(new HomeAdminFragment());
+
+                    adminRef.child("registro").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
+                                replaceFragment(new HomeAdminFragment());
+                            } else {
+                                String message = task.getException().toString();
+                                Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                 } else {
                     String message = task.getException().toString();
                     Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
@@ -243,8 +255,20 @@ public class agregarRomanticosFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<Void> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                        replaceFragment(new HomeAdminFragment());
+
+                        adminRef.child("registro").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
+                                    replaceFragment(new HomeAdminFragment());
+                                } else {
+                                    String message = task.getException().toString();
+                                    Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                     } else {
                         String message = task.getException().toString();
                         Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();

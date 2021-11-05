@@ -51,9 +51,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     private View view;
 
-    //Variables
-    private SearchView searchView;
-
     //Variales libros aventuras
     RecyclerView recyclerView_aventura;
     DatabaseReference dbRef_aventura;
@@ -138,10 +135,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         //SCROLL HORIZONTAL AVENTURAS
         dbRef_aventura = FirebaseDatabase.getInstance().getReference("books").child("aventura");
 
-        searchView = view.findViewById(R.id.searchView);
         recyclerView_aventura = view.findViewById(R.id.aventuraLibros_List);
-
-        searchView.setOnQueryTextListener(this);
 
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false
