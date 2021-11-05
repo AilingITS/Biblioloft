@@ -19,183 +19,351 @@
                     android:orientation="vertical">
 
                         <androidx.appcompat.widget.SearchView
-                            android:id="@+id/home_search"
+                            android:id="@+id/searchView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             app:iconifiedByDefault="false"
                             app:queryHint="Buscar libro"
-                            android:layout_marginStart="32dp"
+                            android:layout_marginStart="16dp"
                             android:layout_marginTop="32dp"
-                            android:layout_marginEnd="32dp"
+                            android:layout_marginEnd="16dp"
                             />
 
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Libros Cientificos"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                            android:orientation="horizontal"
+                            >
+
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Libros Cientificos"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"/>
+
+                                <Button
+                                    android:id="@+id/btn_mostrarMas_cientifico"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="25dp"
+                                    android:gravity="right"
+                                    android:background="@null"
+                                    android:layout_marginEnd="16dp"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:text="Mostrar mas"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/topLibros_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Libros de Aventura"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/topLibros_list" />
+                            android:orientation="horizontal"
+                            >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Libros de Aventura"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/topLibros_list" />
+
+                                <Button
+                                    android:id="@+id/btn_mostrarMas_aventura"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="25dp"
+                                    android:gravity="right"
+                                    android:background="@null"
+                                    android:layout_marginEnd="16dp"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:text="Mostrar mas"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/aventuraLibros_List"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Libros Romanticos"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/aventuraLibros_List" />
+                            android:orientation="horizontal"
+                            >
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Libros Romanticos"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/aventuraLibros_List" />
+
+                                <Button
+                                    android:id="@+id/btn_mostrarMas_romanticos"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="25dp"
+                                    android:gravity="right"
+                                    android:background="@null"
+                                    android:layout_marginEnd="16dp"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:text="Mostrar mas"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/romanticosLibros_List"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Libros de Ficcion"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/romanticosLibros_List" />
+                            android:orientation="horizontal"
+                            >
+
+                                <TextView
+                                    android:id="@+id/textView6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Libros de Ficcion"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/romanticosLibros_List" />
+
+                                <Button
+                                    android:id="@+id/btn_mostrarMas_ficcion"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="25dp"
+                                    android:gravity="right"
+                                    android:background="@null"
+                                    android:layout_marginEnd="16dp"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:text="Mostrar mas"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/ficcionLibros_List"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-                        <TextView
-                            android:id="@+id/textView7"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Libros infantiles"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/ficcionLibros_List" />
+                            android:orientation="horizontal"
+                            >
+
+                                <TextView
+                                    android:id="@+id/textView7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Libros infantiles"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/ficcionLibros_List" />
+
+                                <Button
+                                    android:id="@+id/btn_mostrarMas_infantiles"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="25dp"
+                                    android:gravity="right"
+                                    android:background="@null"
+                                    android:layout_marginEnd="16dp"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:text="Mostrar mas"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/infantilesLibros_List"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Libros de literatura"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/infantilesLibros_List" />
+                            android:orientation="horizontal"
+                            >
+
+                                <TextView
+                                    android:id="@+id/textView8"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Libros de literatura"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/infantilesLibros_List" />
+
+                                <Button
+                                    android:id="@+id/btn_mostrarMas_literatura"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="25dp"
+                                    android:gravity="right"
+                                    android:background="@null"
+                                    android:layout_marginEnd="16dp"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:text="Mostrar mas"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/literaturaLibros_List"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Libros de Misterio"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/literaturaLibros_List" />
+                            android:orientation="horizontal"
+                            >
+
+                                <TextView
+                                    android:id="@+id/textView9"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Libros de Misterio"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/literaturaLibros_List" />
+
+                                <Button
+                                    android:id="@+id/btn_mostrarMas_misterio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="25dp"
+                                    android:gravity="right"
+                                    android:background="@null"
+                                    android:layout_marginEnd="16dp"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:text="Mostrar mas"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/misteriosLibros_List"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Libros de Poesia"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/misteriosLibros_List" />
+                            android:orientation="horizontal"
+                            >
+
+                                <TextView
+                                    android:id="@+id/textView10"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:text="Libros de Poesia"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/misteriosLibros_List" />
+
+                                <Button
+                                    android:id="@+id/btn_mostrarMas_poesia"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="25dp"
+                                    android:gravity="right"
+                                    android:background="@null"
+                                    android:layout_marginEnd="16dp"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:text="Mostrar mas"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/poeticosLibros_List"
@@ -206,25 +374,46 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
-                            android:text="Libros de Terror"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/poeticosLibros_List" />
+                            android:orientation="horizontal"
+                            >
+
+                                <TextView
+                                    android:id="@+id/textView11"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="Libros de Terror"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/poeticosLibros_List" />
+
+                                <Button
+                                    android:id="@+id/btn_mostrarMas_terror"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="25dp"
+                                    android:gravity="right"
+                                    android:background="@null"
+                                    android:layout_marginEnd="16dp"
+                                    android:drawableRight="@drawable/ic_arrow_right"
+                                    android:text="Mostrar mas"
+                                    android:textAppearance="?android:textAppearanceMedium"
+                                    android:textColor="@color/black"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/terrorLibros_List"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="70dp"
-                            android:layout_marginTop="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView11" />

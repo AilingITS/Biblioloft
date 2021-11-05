@@ -3,6 +3,7 @@ package com.example.biblioloft.fragmentsUser;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -49,6 +50,9 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private View view;
+
+    //Variables
+    private SearchView searchView;
 
     //Variales libros aventuras
     RecyclerView recyclerView_aventura;
@@ -134,7 +138,10 @@ public class HomeFragment extends Fragment {
         //SCROLL HORIZONTAL AVENTURAS
         dbRef_aventura = FirebaseDatabase.getInstance().getReference("books").child("aventura");
 
+        searchView = view.findViewById(R.id.searchView);
         recyclerView_aventura = view.findViewById(R.id.aventuraLibros_List);
+
+        searchView.setOnQueryTextListener(this);
 
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(
                 view.getContext(), LinearLayoutManager.HORIZONTAL, false
@@ -420,5 +427,15 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }
