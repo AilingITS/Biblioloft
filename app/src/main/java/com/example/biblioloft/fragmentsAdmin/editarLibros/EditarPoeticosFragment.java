@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.biblioloft.R;
 import com.example.biblioloft.fragmentsAdmin.registroLibros.registroCientificosFragment;
+import com.example.biblioloft.fragmentsAdmin.registroLibros.registroPoeticosFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,10 +44,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditarCientificoFragment extends Fragment {
+public class EditarPoeticosFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
     private String mParam1;
     private String mParam2;
 
@@ -65,16 +67,16 @@ public class EditarCientificoFragment extends Fragment {
     private Uri ImageUri;
     private String downloadImageUrl;
 
-    public EditarCientificoFragment(String libroID) {
+    public EditarPoeticosFragment(String libroID) {
         this.libroID = libroID;
     }
 
-    public EditarCientificoFragment() {
+    public EditarPoeticosFragment() {
         // Required empty public constructor
     }
 
-    public static EditarCientificoFragment newInstance(String param1, String param2) {
-        EditarCientificoFragment fragment = new EditarCientificoFragment();
+    public static EditarPoeticosFragment newInstance(String param1, String param2) {
+        EditarPoeticosFragment fragment = new EditarPoeticosFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,8 +98,8 @@ public class EditarCientificoFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_editar_cientifico, container, false);
 
-        dbRef = FirebaseDatabase.getInstance().getReference("books").child("cientifico");
-        ImagesRef = FirebaseStorage.getInstance().getReference().child("cientifico");
+        dbRef = FirebaseDatabase.getInstance().getReference("books").child("poeticos");
+        ImagesRef = FirebaseStorage.getInstance().getReference().child("poeticos");
 
         editar_nombreLibro = view.findViewById(R.id.editar_nombreLibro);
         editar_descripcionLibro = view.findViewById(R.id.editar_descripcionLibro);
@@ -149,7 +151,6 @@ public class EditarCientificoFragment extends Fragment {
 
         return view;
     }
-
     //Función cuando el usuario da clic en el boton actualizar datos
     private void ValidateProductData() {
         String nombre = editar_nombreLibro.getText().toString();
@@ -177,7 +178,7 @@ public class EditarCientificoFragment extends Fragment {
             String saveCurrentTime = currentTime.format(calendar.getTime());
             String imgID = saveCurrentDate + saveCurrentTime;
 
-            StorageReference fileRef = ImagesRef.child("cientifico").child(imgID + ".jpg");
+            StorageReference fileRef = ImagesRef.child("poeticos").child(imgID + ".jpg");
             final UploadTask uploadTask = fileRef.putFile(ImageUri);
 
             uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -227,7 +228,7 @@ public class EditarCientificoFragment extends Fragment {
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                    replaceFragment(new registroCientificosFragment());
+                    replaceFragment(new registroPoeticosFragment());
                 } else {
                     String message = task.getException().toString();
                     Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
@@ -266,7 +267,7 @@ public class EditarCientificoFragment extends Fragment {
                 public void onComplete(@NonNull @NotNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                        replaceFragment(new registroCientificosFragment());
+                        replaceFragment(new registroPoeticosFragment());
                     } else {
                         String message = task.getException().toString();
                         Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();

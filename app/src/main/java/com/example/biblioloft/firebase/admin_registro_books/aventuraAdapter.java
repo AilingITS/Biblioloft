@@ -12,9 +12,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.biblioloft.R;
+import com.example.biblioloft.fragmentsAdmin.editarLibros.EditarAventuraFragment;
+import com.example.biblioloft.fragmentsAdmin.editarLibros.EditarCientificoFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -68,8 +71,9 @@ public class aventuraAdapter extends RecyclerView.Adapter<aventuraAdapter.booksH
                     public void onClick(DialogInterface dialog, int which) {
                         if(opciones[which] == "Editar"){
                             AppCompatActivity activity = (AppCompatActivity) context;
-                            //Fragment myFragment = new EditarDesayunoFragment(foods.getP_ID());
-                            //activity.getSupportFragmentManager().beginTransaction().replace(R.id.body_container, myFragment).addToBackStack(null).commit();
+                            //Le pasa el parametro (ID del item que se va a editar) al contructor del fragment
+                            Fragment myFragment = new EditarAventuraFragment(books.getLibroID());
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.body_container, myFragment).addToBackStack(null).commit();
                         }
                         if(opciones[which] == "Borrar"){
                             list.clear();

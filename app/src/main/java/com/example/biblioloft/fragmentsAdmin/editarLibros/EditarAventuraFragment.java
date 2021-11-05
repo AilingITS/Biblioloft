@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.biblioloft.R;
+import com.example.biblioloft.fragmentsAdmin.registroLibros.registroAventuraFragment;
 import com.example.biblioloft.fragmentsAdmin.registroLibros.registroCientificosFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,10 +44,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditarCientificoFragment extends Fragment {
+public class EditarAventuraFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
     private String mParam1;
     private String mParam2;
 
@@ -65,16 +67,16 @@ public class EditarCientificoFragment extends Fragment {
     private Uri ImageUri;
     private String downloadImageUrl;
 
-    public EditarCientificoFragment(String libroID) {
+    public EditarAventuraFragment(String libroID) {
         this.libroID = libroID;
     }
 
-    public EditarCientificoFragment() {
+    public EditarAventuraFragment() {
         // Required empty public constructor
     }
 
-    public static EditarCientificoFragment newInstance(String param1, String param2) {
-        EditarCientificoFragment fragment = new EditarCientificoFragment();
+    public static EditarAventuraFragment newInstance(String param1, String param2) {
+        EditarAventuraFragment fragment = new EditarAventuraFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -94,10 +96,10 @@ public class EditarCientificoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_editar_cientifico, container, false);
+        view = inflater.inflate(R.layout.fragment_editar_aventura, container, false);
 
-        dbRef = FirebaseDatabase.getInstance().getReference("books").child("cientifico");
-        ImagesRef = FirebaseStorage.getInstance().getReference().child("cientifico");
+        dbRef = FirebaseDatabase.getInstance().getReference("books").child("aventura");
+        ImagesRef = FirebaseStorage.getInstance().getReference().child("aventura");
 
         editar_nombreLibro = view.findViewById(R.id.editar_nombreLibro);
         editar_descripcionLibro = view.findViewById(R.id.editar_descripcionLibro);
@@ -149,7 +151,6 @@ public class EditarCientificoFragment extends Fragment {
 
         return view;
     }
-
     //Función cuando el usuario da clic en el boton actualizar datos
     private void ValidateProductData() {
         String nombre = editar_nombreLibro.getText().toString();
@@ -177,7 +178,7 @@ public class EditarCientificoFragment extends Fragment {
             String saveCurrentTime = currentTime.format(calendar.getTime());
             String imgID = saveCurrentDate + saveCurrentTime;
 
-            StorageReference fileRef = ImagesRef.child("cientifico").child(imgID + ".jpg");
+            StorageReference fileRef = ImagesRef.child("aventura").child(imgID + ".jpg");
             final UploadTask uploadTask = fileRef.putFile(ImageUri);
 
             uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -227,7 +228,7 @@ public class EditarCientificoFragment extends Fragment {
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                    replaceFragment(new registroCientificosFragment());
+                    replaceFragment(new registroAventuraFragment());
                 } else {
                     String message = task.getException().toString();
                     Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
@@ -266,7 +267,7 @@ public class EditarCientificoFragment extends Fragment {
                 public void onComplete(@NonNull @NotNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getActivity(),R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                        replaceFragment(new registroCientificosFragment());
+                        replaceFragment(new registroAventuraFragment());
                     } else {
                         String message = task.getException().toString();
                         Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
