@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.biblioloft.fragmentsAdmin.RegistroLibrosFragment"
-    android:layout_marginBottom="92dp">
+    >
 
     <ScrollView
         android:layout_width="match_parent"
@@ -161,6 +161,7 @@
                         android:id="@+id/imgFiccion"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
+                        android:layout_marginBottom="92dp"
                         android:layout_marginStart="32dp"
                         android:text="@string/stringFiccion"
                         android:layout_marginTop="10dp"

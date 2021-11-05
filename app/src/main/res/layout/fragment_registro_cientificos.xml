@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="92dp"
     tools:context="com.example.biblioloft.fragmentsAdmin.registroLibros.registroCientificosFragment"
-    android:layout_marginBottom="92dp">
+    >
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_height="match_parent"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -24,23 +24,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="42dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="32dp"
                 android:text="@string/stringCientificos"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cientificosList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                tools:layout_editor_absoluteX="0dp" />
+                />
 
         </LinearLayout>
 

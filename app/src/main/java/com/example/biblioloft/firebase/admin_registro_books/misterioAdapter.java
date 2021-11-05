@@ -112,7 +112,7 @@ public class misterioAdapter extends RecyclerView.Adapter<misterioAdapter.booksH
 
             tipoLibro = itemView.findViewById(R.id.item_tipo);
             nombreLibro = itemView.findViewById(R.id.item_nombreLibro);
-            descripcionLibro = itemView.findViewById(R.id.item_descripcionLibro);
+            //descripcionLibro = itemView.findViewById(R.id.item_descripcionLibro);
             paginasLibro = itemView.findViewById(R.id.item_paginasLibro);
             imageLibro = itemView.findViewById(R.id.item_imagen);
         }

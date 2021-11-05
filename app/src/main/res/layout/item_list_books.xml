@@ -85,7 +85,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Descripción:"
+                        android:text="Autor:"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -96,11 +96,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/item_descripcionLibro"
+                        android:id="@+id/item_autorLibro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:text="Descripción del libro"
+                        android:text="Autor del libro"
                         android:textColor="@color/black"
                         android:textStyle="italic"
                         android:textSize="16sp"/>
