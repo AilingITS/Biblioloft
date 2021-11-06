@@ -52,7 +52,7 @@ public class literaturaAdapter extends RecyclerView.Adapter<literaturaAdapter.bo
         Literatura books = list.get(position);
         holder.tipoLibro.setText(books.getTipoLibro());
         holder.nombreLibro.setText(books.getNombreLibro());
-        holder.descripcionLibro.setText(books.getDescripcionLibro());
+        holder.autorLibro.setText(books.getAutorLibro());
         holder.paginasLibro.setText(books.getPaginasLibro());
         Picasso.get().load(books.getImageLibro()).into(holder.imageLibro);
 
@@ -80,7 +80,12 @@ public class literaturaAdapter extends RecyclerView.Adapter<literaturaAdapter.bo
                             dbRef.child(books.getLibroID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull @NotNull Task<Void> task) {
-                                    Toast.makeText(context, "Se ha borrado correctamente", Toast.LENGTH_SHORT).show();
+                                    dbRef.child("registro").child(books.getLibroID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                            Toast.makeText(context, "Se ha borrado correctamente", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -104,7 +109,7 @@ public class literaturaAdapter extends RecyclerView.Adapter<literaturaAdapter.bo
 
     public static class booksHolder extends RecyclerView.ViewHolder{
 
-        TextView tipoLibro, nombreLibro, descripcionLibro, paginasLibro;
+        TextView tipoLibro, nombreLibro, autorLibro ,paginasLibro;
         ImageView imageLibro;
 
         public booksHolder(View itemView){
@@ -112,7 +117,7 @@ public class literaturaAdapter extends RecyclerView.Adapter<literaturaAdapter.bo
 
             tipoLibro = itemView.findViewById(R.id.item_tipo);
             nombreLibro = itemView.findViewById(R.id.item_nombreLibro);
-            //descripcionLibro = itemView.findViewById(R.id.item_descripcionLibro);
+            autorLibro = itemView.findViewById(R.id.item_autorLibro);
             paginasLibro = itemView.findViewById(R.id.item_paginasLibro);
             imageLibro = itemView.findViewById(R.id.item_imagen);
         }

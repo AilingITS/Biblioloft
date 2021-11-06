@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.biblioloft.R;
+import com.example.biblioloft.fragmentsAdmin.registroLibros.registroAventuraFragment;
 import com.example.biblioloft.fragmentsAdmin.registroLibros.registroCientificosFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,8 +58,7 @@ public class EditarCientificoFragment extends Fragment {
     private StorageReference ImagesRef;
 
     Button editar_btn_guardarCambios;
-    private EditText editar_nombreLibro, editar_descripcionLibro, editar_paginasLibro;
-
+    private EditText editar_nombreLibro, editar_descripcionLibro, editar_paginasLibro, editar_autorLibro;
     private ImageView editar_img;
     private static final int GalleryPick = 1;
     private static final int RESULT_OK = -1;
@@ -96,15 +96,16 @@ public class EditarCientificoFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_editar_cientifico, container, false);
 
-        dbRef = FirebaseDatabase.getInstance().getReference("books").child("cientifico");
+        dbRef = FirebaseDatabase.getInstance().getReference("books");
         ImagesRef = FirebaseStorage.getInstance().getReference().child("cientifico");
 
         editar_nombreLibro = view.findViewById(R.id.editar_nombreLibro);
+        editar_autorLibro = view.findViewById(R.id.editar_autorLibro);
         editar_descripcionLibro = view.findViewById(R.id.editar_descripcionLibro);
         editar_paginasLibro = view.findViewById(R.id.editar_paginasLibro);
         editar_img = view.findViewById(R.id.editar_img);
 
-        dbRef.child(libroID).addValueEventListener(new ValueEventListener() {
+        dbRef.child("cientifico").child(libroID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -115,10 +116,12 @@ public class EditarCientificoFragment extends Fragment {
                     }
 
                     String nombre = snapshot.child("nombreLibro").getValue().toString();
+                    String autor = snapshot.child("autorLibro").getValue().toString();
                     String descripcion = snapshot.child("descripcionLibro").getValue().toString();
                     String paginas = snapshot.child("paginasLibro").getValue().toString();
 
                     editar_nombreLibro.setText(nombre);
+                    editar_autorLibro.setText(autor);
                     editar_descripcionLibro.setText(descripcion);
                     editar_paginasLibro.setText(paginas);
 
@@ -153,6 +156,7 @@ public class EditarCientificoFragment extends Fragment {
     //Función cuando el usuario da clic en el boton actualizar datos
     private void ValidateProductData() {
         String nombre = editar_nombreLibro.getText().toString();
+        String autor = editar_autorLibro.getText().toString();
         String descripcion = editar_descripcionLibro.getText().toString();
         String paginas = editar_paginasLibro.getText().toString();
 
@@ -160,6 +164,9 @@ public class EditarCientificoFragment extends Fragment {
             SaveInfoToDatabasewithoutImage();
         } else if (TextUtils.isEmpty(nombre)) {
             editar_nombreLibro.setError("Ingrese el nombre del libro");
+            editar_nombreLibro.requestFocus();
+        } else if (TextUtils.isEmpty(autor)) {
+            editar_nombreLibro.setError("Ingrese el nombre del autor");
             editar_nombreLibro.requestFocus();
         } else if (TextUtils.isEmpty(descripcion)) {
             editar_descripcionLibro.setError("Ingrese la descripción del libro");
@@ -216,18 +223,30 @@ public class EditarCientificoFragment extends Fragment {
     private void SaveInfoToDatabasewithoutImage () {
         HashMap<String, Object> infoMap = new HashMap<>();
         String nombre = editar_nombreLibro.getText().toString();
+        String autor = editar_autorLibro.getText().toString();
         String descripcion = editar_descripcionLibro.getText().toString();
         String paginas = editar_paginasLibro.getText().toString();
         infoMap.put("nombreLibro", nombre);
+        infoMap.put("autorLibro", autor);
         infoMap.put("descripcionLibro", descripcion);
         infoMap.put("paginasLibro", paginas);
 
-        dbRef.child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        dbRef.child("cientifico").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                    replaceFragment(new registroCientificosFragment());
+                    dbRef.child("registro").child(libroID).updateChildren(infoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
+                                replaceFragment(new registroAventuraFragment());
+                            } else {
+                                String message = task.getException().toString();
+                                Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 } else {
                     String message = task.getException().toString();
                     Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
@@ -240,6 +259,7 @@ public class EditarCientificoFragment extends Fragment {
         //Obtenemos los datos que ingreso el usuario
 
         String nombre = editar_nombreLibro.getText().toString();
+        String autor = editar_autorLibro.getText().toString();
         String descripcion = editar_descripcionLibro.getText().toString();
         String paginas = editar_paginasLibro.getText().toString();
 
@@ -247,6 +267,9 @@ public class EditarCientificoFragment extends Fragment {
         if (TextUtils.isEmpty(nombre)) {
             editar_nombreLibro.setError("Ingrese el nombre del libro");
             editar_nombreLibro.requestFocus();
+        } else if (TextUtils.isEmpty(autor)) {
+            editar_descripcionLibro.setError("Ingrese el nombre del autor");
+            editar_descripcionLibro.requestFocus();
         } else if (TextUtils.isEmpty(descripcion)) {
             editar_descripcionLibro.setError("Ingrese la descripción del libro");
             editar_descripcionLibro.requestFocus();
@@ -257,16 +280,27 @@ public class EditarCientificoFragment extends Fragment {
             //Map para registrar a un usuario con sus datos
             Map<String, Object> desayunoMap = new HashMap<>();
             desayunoMap.put("nombreLibro", nombre);
+            desayunoMap.put("autorLibro", autor);
             desayunoMap.put("descripcionLibro", descripcion);
             desayunoMap.put("paginasLibro", paginas);
             desayunoMap.put("imageLibro", downloadImageUrl);
 
-            dbRef.child(libroID).updateChildren(desayunoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            dbRef.child("cientifico").child(libroID).updateChildren(desayunoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getActivity(),R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                        replaceFragment(new registroCientificosFragment());
+                        dbRef.child("registro").child(libroID).updateChildren(desayunoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
+                                    replaceFragment(new registroAventuraFragment());
+                                } else {
+                                    String message = task.getException().toString();
+                                    Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     } else {
                         String message = task.getException().toString();
                         Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();

@@ -49,7 +49,7 @@ public class agregarAventuraFragment extends Fragment {
 
     private View vista;
 
-    private EditText nombreLibro, descripcionLibro, paginasLibro;
+    private EditText nombreLibro, descripcionLibro, paginasLibro, autorLibro;
     private Button btn_añadirLibro;
     private ImageView btn_agregar_img;
     private String libroID, saveCurrentDate, saveCurrentTime;
@@ -94,6 +94,7 @@ public class agregarAventuraFragment extends Fragment {
         ImagesRef = FirebaseStorage.getInstance().getReference().child("aventura");
 
         nombreLibro = vista.findViewById(R.id.nombreLibro);
+        autorLibro = vista.findViewById(R.id.autorLibro);
         descripcionLibro = vista.findViewById(R.id.descripcionLibro);
         paginasLibro = vista.findViewById(R.id.paginasLibro);
         btn_agregar_img = vista.findViewById(R.id.btn_agregar_img);
@@ -115,6 +116,7 @@ public class agregarAventuraFragment extends Fragment {
     private void ValidateProductData() {
         //Obtenemos los datos que ingreso el usuario
         String nombre = nombreLibro.getText().toString();
+        String autor = autorLibro.getText().toString();
         String descripcion = descripcionLibro.getText().toString();
         String paginas = paginasLibro.getText().toString();
 
@@ -124,7 +126,10 @@ public class agregarAventuraFragment extends Fragment {
         } else if (TextUtils.isEmpty(nombre)){
             nombreLibro.setError("Ingrese el nombre del libro");
             nombreLibro.requestFocus();
-        } else if(TextUtils.isEmpty(descripcion)){
+        } else if (TextUtils.isEmpty(autor)) {
+            autorLibro.setError("Ingrese el nombre del autor");
+            autorLibro.requestFocus();
+        }else if(TextUtils.isEmpty(descripcion)){
             descripcionLibro.setError("Ingrese la descripción del libro");
             descripcionLibro.requestFocus();
         } else if(TextUtils.isEmpty(paginas)){
@@ -185,6 +190,7 @@ public class agregarAventuraFragment extends Fragment {
         libroID = saveCurrentDate + saveCurrentTime;
 
         String nombre = nombreLibro.getText().toString();
+        String autor = autorLibro.getText().toString();
         String descripcion = descripcionLibro.getText().toString();
         String paginas = paginasLibro.getText().toString();
 
@@ -192,6 +198,7 @@ public class agregarAventuraFragment extends Fragment {
         infoMap.put("libroID", libroID);
         infoMap.put("tipoLibro", "Aventura");
         infoMap.put("nombreLibro", nombre);
+        infoMap.put("autorLibro", autor);
         infoMap.put("descripcionLibro", descripcion);
         infoMap.put("paginasLibro", paginas);
 
@@ -226,6 +233,7 @@ public class agregarAventuraFragment extends Fragment {
     private void SaveInfoToDatabase() {
         //Obtenemos los datos que ingreso el usuario
         String nombre = nombreLibro.getText().toString();
+        String autor = autorLibro.getText().toString();
         String descripcion = descripcionLibro.getText().toString();
         String paginas = paginasLibro.getText().toString();
 
@@ -233,7 +241,10 @@ public class agregarAventuraFragment extends Fragment {
         if (TextUtils.isEmpty(nombre)){
             nombreLibro.setError("Ingrese el nombre del libro");
             nombreLibro.requestFocus();
-        } else if(TextUtils.isEmpty(descripcion)){
+        } else if(TextUtils.isEmpty(autor)){
+            autorLibro.setError("Ingrese el nombre del autor");
+            autorLibro.requestFocus();
+        }else if(TextUtils.isEmpty(descripcion)){
             descripcionLibro.setError("Ingrese la descripción del libro");
             descripcionLibro.requestFocus();
         } else if(TextUtils.isEmpty(paginas)){
@@ -246,6 +257,7 @@ public class agregarAventuraFragment extends Fragment {
             infoMap.put("libroID", libroID);
             infoMap.put("tipoLibro", "Aventura");
             infoMap.put("nombreLibro", nombre);
+            infoMap.put("autorLibro", autor);
             infoMap.put("descripcionLibro", descripcion);
             infoMap.put("paginasLibro", paginas);
             infoMap.put("imageLibro", downloadImageUrl);

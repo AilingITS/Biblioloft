@@ -47,12 +47,12 @@ public class aventuraAdapter extends RecyclerView.Adapter<aventuraAdapter.booksH
 
     public void onBindViewHolder(@NonNull @NotNull aventuraAdapter.booksHolder holder, int position) {
 
-        dbRef = FirebaseDatabase.getInstance().getReference().child("books").child("aventura");
+        dbRef = FirebaseDatabase.getInstance().getReference().child("books");
 
         Aventura books = list.get(position);
         holder.tipoLibro.setText(books.getTipoLibro());
+        holder.autorLibro.setText(books.getAutorLibro());
         holder.nombreLibro.setText(books.getNombreLibro());
-        holder.descripcionLibro.setText(books.getDescripcionLibro());
         holder.paginasLibro.setText(books.getPaginasLibro());
         Picasso.get().load(books.getImageLibro()).into(holder.imageLibro);
 
@@ -78,10 +78,15 @@ public class aventuraAdapter extends RecyclerView.Adapter<aventuraAdapter.booksH
                         if(opciones[which] == "Borrar"){
                             list.clear();
 
-                            dbRef.child(books.getLibroID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            dbRef.child("aventura").child(books.getLibroID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull @NotNull Task<Void> task) {
-                                    Toast.makeText(context, "Se ha borrado correctamente", Toast.LENGTH_SHORT).show();
+                                    dbRef.child("registro").child(books.getLibroID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                            Toast.makeText(context, "Se ha borrado correctamente", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -105,7 +110,7 @@ public class aventuraAdapter extends RecyclerView.Adapter<aventuraAdapter.booksH
 
     public static class booksHolder extends RecyclerView.ViewHolder{
 
-        TextView tipoLibro, nombreLibro, descripcionLibro, paginasLibro;
+        TextView tipoLibro, nombreLibro, autorLibro, paginasLibro;
         ImageView imageLibro;
 
         public booksHolder(View itemView){
@@ -113,7 +118,7 @@ public class aventuraAdapter extends RecyclerView.Adapter<aventuraAdapter.booksH
 
             tipoLibro = itemView.findViewById(R.id.item_tipo);
             nombreLibro = itemView.findViewById(R.id.item_nombreLibro);
-            //descripcionLibro = itemView.findViewById(R.id.item_descripcionLibro);
+            autorLibro = itemView.findViewById(R.id.item_autorLibro);
             paginasLibro = itemView.findViewById(R.id.item_paginasLibro);
             imageLibro = itemView.findViewById(R.id.item_imagen);
         }

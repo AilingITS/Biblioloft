@@ -77,10 +77,15 @@ public class cientificoAdapter extends RecyclerView.Adapter<cientificoAdapter.bo
                         if(opciones[which] == "Borrar"){
                             list.clear();
 
-                            dbRef.child(books.getLibroID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            dbRef.child("cientifico").child(books.getLibroID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull @NotNull Task<Void> task) {
-                                    Toast.makeText(context, "Se ha borrado correctamente", Toast.LENGTH_SHORT).show();
+                                    dbRef.child("registro").child(books.getLibroID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                            Toast.makeText(context, "Se ha borrado correctamente", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             });
                         }

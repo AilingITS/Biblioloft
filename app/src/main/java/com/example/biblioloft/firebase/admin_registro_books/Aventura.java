@@ -1,7 +1,7 @@
 package com.example.biblioloft.firebase.admin_registro_books;
 
 public class Aventura {
-    String descripcionLibro, libroID, nombreLibro, paginasLibro, tipoLibro, imageLibro;
+    String descripcionLibro, libroID, nombreLibro, paginasLibro, tipoLibro, imageLibro, autorLibro;
 
     public String getDescripcionLibro() {
         return descripcionLibro;
@@ -25,5 +25,9 @@ public class Aventura {
 
     public String getImageLibro() {
         return imageLibro;
+    }
+
+    public String getAutorLibro() {
+        return autorLibro;
     }
 }
