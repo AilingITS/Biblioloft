@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,10 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.content.SharedPreferences;
 
 import com.example.biblioloft.R;
 import com.example.biblioloft.fragmentsUser.alarm.Utils;
@@ -30,10 +31,16 @@ public class ProgramarSesionFragment extends Fragment {
     private String mParam2;
 
     private View view;
+
+    //Hora
     private TextView notificationsTime;
     private Button change_notification;
     private int alarmID = 1;
     private SharedPreferences settings;
+
+    //Fecha
+    private static final String TAG = "CalendarActivity";
+    private CalendarView calendarView;
 
     public ProgramarSesionFragment() {
         // Required empty public constructor
@@ -60,7 +67,7 @@ public class ProgramarSesionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_challenge, container, false);
+        view = inflater.inflate(R.layout.fragment_programar_sesion, container, false);
 
         settings = getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
@@ -71,9 +78,17 @@ public class ProgramarSesionFragment extends Fragment {
 
         notificationsTime = (TextView) view.findViewById(R.id.notifications_time);
         change_notification = (Button) view.findViewById(R.id.change_notification);
+        calendarView = (CalendarView) view.findViewById(R.id.calendarView);
 
-        if(hour.length() > 0)
-        {
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                String date = dayOfMonth + "/" + month + "/" + year;
+                Toast.makeText(getContext(), "Fecha: " + date, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        if(hour.length() > 0) {
             notificationsTime.setText(hour + ":" + minute);
         }
 
