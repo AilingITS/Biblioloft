@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -32,6 +33,11 @@ public class ProgramarSesionFragment extends Fragment {
     private String mParam2;
 
     private View view;
+    //Barra de progreso del libro actual que se esta leyendo
+    private int CurrentProgress = 0;
+    private ProgressBar progressBar;
+    private Button startProgress;
+    private TextView main_Nump_aginasLeidas;
 
     //Hora
     private TextView notificationsTime;
@@ -73,6 +79,20 @@ public class ProgramarSesionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_programar_sesion, container, false);
+
+        //BARRA DE PROGRESO - paginas leidas
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        startProgress = (Button) view.findViewById(R.id.startProgress);
+        main_Nump_aginasLeidas = (TextView) view.findViewById(R.id.main_Nump_aginasLeidas);
+
+        startProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CurrentProgress = CurrentProgress + 10;
+                progressBar.setProgress(CurrentProgress);
+                progressBar.setMax(100);
+            }
+        });
 
         settings = getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
