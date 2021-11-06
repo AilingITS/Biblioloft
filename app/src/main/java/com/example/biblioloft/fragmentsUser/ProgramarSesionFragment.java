@@ -39,6 +39,7 @@ public class ProgramarSesionFragment extends Fragment {
     private SharedPreferences settings;
 
     //Fecha
+    private TextView programar_fecha;
     private static final String TAG = "CalendarActivity";
     private CalendarView calendarView;
 
@@ -79,11 +80,13 @@ public class ProgramarSesionFragment extends Fragment {
         notificationsTime = (TextView) view.findViewById(R.id.notifications_time);
         change_notification = (Button) view.findViewById(R.id.change_notification);
         calendarView = (CalendarView) view.findViewById(R.id.calendarView);
+        programar_fecha = (TextView) view.findViewById(R.id.programar_fecha);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 String date = dayOfMonth + "/" + month + "/" + year;
+                programar_fecha.setText(date);
                 Toast.makeText(getContext(), "Fecha: " + date, Toast.LENGTH_SHORT).show();
             }
         });
