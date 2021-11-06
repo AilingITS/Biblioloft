@@ -287,7 +287,7 @@ public class EditarRomanticosFragment extends Fragment {
             desayunoMap.put("paginasLibro", paginas);
             desayunoMap.put("imageLibro", downloadImageUrl);
 
-            dbRef.child("aventura").child(libroID).updateChildren(desayunoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            dbRef.child("romanticos").child(libroID).updateChildren(desayunoMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull @NotNull Task<Void> task) {
                     if (task.isSuccessful()) {

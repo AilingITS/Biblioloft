@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.biblioloft.R;
 import com.example.biblioloft.fragmentsAdmin.registroLibros.registroAventuraFragment;
 import com.example.biblioloft.fragmentsAdmin.registroLibros.registroCientificosFragment;
+import com.example.biblioloft.fragmentsAdmin.registroLibros.registroPoeticosFragment;
 import com.example.biblioloft.fragmentsAdmin.registroLibros.registroTerrorFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -243,7 +244,7 @@ public class EditarTerrorFragment extends Fragment {
                         public void onComplete(@NonNull @NotNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                                replaceFragment(new registroAventuraFragment());
+                                replaceFragment(new registroPoeticosFragment());
                             } else {
                                 String message = task.getException().toString();
                                 Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
@@ -297,7 +298,7 @@ public class EditarTerrorFragment extends Fragment {
                             public void onComplete(@NonNull @NotNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                                    replaceFragment(new registroAventuraFragment());
+                                    replaceFragment(new registroPoeticosFragment());
                                 } else {
                                     String message = task.getException().toString();
                                     Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();

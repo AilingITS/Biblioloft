@@ -240,7 +240,7 @@ public class EditarCientificoFragment extends Fragment {
                         public void onComplete(@NonNull @NotNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                                replaceFragment(new registroAventuraFragment());
+                                replaceFragment(new registroCientificosFragment());
                             } else {
                                 String message = task.getException().toString();
                                 Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
@@ -294,7 +294,7 @@ public class EditarCientificoFragment extends Fragment {
                             public void onComplete(@NonNull @NotNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getActivity(), R.string.stringCambiosGuardadosCorrectamente, Toast.LENGTH_SHORT).show();
-                                    replaceFragment(new registroAventuraFragment());
+                                    replaceFragment(new registroCientificosFragment());
                                 } else {
                                     String message = task.getException().toString();
                                     Toast.makeText(getActivity(), R.string.stringError + message, Toast.LENGTH_SHORT).show();
