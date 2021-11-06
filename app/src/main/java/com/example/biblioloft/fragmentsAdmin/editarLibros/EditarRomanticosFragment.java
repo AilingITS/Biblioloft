@@ -124,6 +124,7 @@ public class EditarRomanticosFragment extends Fragment {
                     String paginas = snapshot.child("paginasLibro").getValue().toString();
 
                     editar_nombreLibro.setText(nombre);
+                    editar_autorLibro.setText(autor);
                     editar_descripcionLibro.setText(descripcion);
                     editar_paginasLibro.setText(paginas);
 
