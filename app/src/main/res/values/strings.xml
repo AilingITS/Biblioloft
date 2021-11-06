@@ -38,8 +38,8 @@
     <string name="Español_English">ESPAÑOL/ENGLISH</string>
 
     <!-- Strings user -->
-    <string name="programar_hora">La hora seleccionada es:</string>
-    <string name="programar_cambiar_hora">Cambiar hora</string>
+    <string name="programar_hora">Hora: </string>
+    <string name="programar_cambiar_hora">Seleccionar hora</string>
     <string name="home_BuscarMas">Buscar mas</string>
 
     <!-- Strings admin -->

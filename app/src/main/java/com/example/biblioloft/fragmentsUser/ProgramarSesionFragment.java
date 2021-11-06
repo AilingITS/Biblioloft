@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.biblioloft.R;
 import com.example.biblioloft.fragmentsUser.alarm.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ProgramarSesionFragment extends Fragment {
@@ -42,6 +43,9 @@ public class ProgramarSesionFragment extends Fragment {
     private TextView programar_fecha;
     private static final String TAG = "CalendarActivity";
     private CalendarView calendarView;
+    String date, strDate;
+    Calendar actual = Calendar.getInstance();
+    Calendar calendar = Calendar.getInstance();
 
     public ProgramarSesionFragment() {
         // Required empty public constructor
@@ -82,15 +86,24 @@ public class ProgramarSesionFragment extends Fragment {
         calendarView = (CalendarView) view.findViewById(R.id.calendarView);
         programar_fecha = (TextView) view.findViewById(R.id.programar_fecha);
 
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        strDate = format.format(calendar.getTime());
+        programar_fecha.setText(strDate);
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String date = dayOfMonth + "/" + month + "/" + year;
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.YEAR, year);
+
+                date = dayOfMonth + "/" + (month+1) + "/" + year;
                 programar_fecha.setText(date);
                 Toast.makeText(getContext(), "Fecha: " + date, Toast.LENGTH_SHORT).show();
             }
         });
 
+        // Al momento de dar clic en seleccionar hora se establecen los valores actuales del dispositivo
         if(hour.length() > 0) {
             notificationsTime.setText(hour + ":" + minute);
         }
@@ -98,45 +111,44 @@ public class ProgramarSesionFragment extends Fragment {
         change_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String finalHour, finalMinute;
+                    // Los valores que seleccionas se guardan
+                    int hour = actual.get(Calendar.HOUR_OF_DAY);
+                    int minute = actual.get(Calendar.MINUTE);
 
-                        finalHour = "" + selectedHour;
-                        finalMinute = "" + selectedMinute;
-                        if (selectedHour < 10) finalHour = "0" + selectedHour;
-                        if (selectedMinute < 10) finalMinute = "0" + selectedMinute;
-                        notificationsTime.setText(finalHour + ":" + finalMinute);
+                    TimePickerDialog mTimePicker;
+                    mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            String finalHour, finalMinute;
 
-                        Calendar today = Calendar.getInstance();
+                            finalHour = "" + selectedHour;
+                            finalMinute = "" + selectedMinute;
+                            if (selectedHour < 10) finalHour = "0" + selectedHour;
+                            if (selectedMinute < 10) finalMinute = "0" + selectedMinute;
+                            notificationsTime.setText(finalHour + ":" + finalMinute);
 
-                        today.set(Calendar.HOUR_OF_DAY, selectedHour);
-                        today.set(Calendar.MINUTE, selectedMinute);
-                        today.set(Calendar.SECOND, 0);
+                            calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
+                            calendar.set(Calendar.MINUTE, selectedMinute);
+                            calendar.set(Calendar.SECOND, 0);
 
-                        SharedPreferences.Editor edit = settings.edit();
-                        edit.putString("hour", finalHour);
-                        edit.putString("minute", finalMinute);
+                            SharedPreferences.Editor edit = settings.edit();
+                            edit.putString("hour", finalHour);
+                            edit.putString("minute", finalMinute);
 
-                        //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
-                        edit.putInt("alarmID", alarmID);
-                        edit.putLong("alarmTime", today.getTimeInMillis());
+                            //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
+                            edit.putInt("alarmID", alarmID);
+                            edit.putLong("alarmTime", calendar.getTimeInMillis());
 
-                        edit.commit();
+                            edit.commit();
 
-                        Toast.makeText(getActivity(), getString(R.string.changed_to, finalHour + ":" + finalMinute), Toast.LENGTH_LONG).show();
+                            strDate = format.format(calendar.getTime());
+                            Toast.makeText(getActivity(), getString(R.string.changed_to, finalHour + ":" + finalMinute + " para el dia " + strDate), Toast.LENGTH_LONG).show();
 
-                        Utils.setAlarm(alarmID, today.getTimeInMillis(), getContext());
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle(getString(R.string.programar_hora));
-                mTimePicker.show();
-
+                            Utils.setAlarm(alarmID, calendar.getTimeInMillis(), getContext());
+                        }
+                    }, hour, minute, true);//Yes 24 hour time
+                    mTimePicker.setTitle(getString(R.string.programar_hora));
+                    mTimePicker.show();
             }
         });
 
