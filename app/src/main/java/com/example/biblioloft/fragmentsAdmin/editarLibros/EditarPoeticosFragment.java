@@ -97,7 +97,7 @@ public class EditarPoeticosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_editar_cientifico, container, false);
+        view = inflater.inflate(R.layout.fragment_editar_poeticos, container, false);
 
         dbRef = FirebaseDatabase.getInstance().getReference("books");
         ImagesRef = FirebaseStorage.getInstance().getReference().child("poeticos");
