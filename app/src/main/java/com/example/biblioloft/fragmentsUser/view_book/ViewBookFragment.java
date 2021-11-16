@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.biblioloft.R;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +23,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
 public class ViewBookFragment extends Fragment {
 
@@ -32,14 +34,10 @@ public class ViewBookFragment extends Fragment {
 
     private View view;
     private String bookID;
+    private TextView viewBook_title, viewBook_author, viewBook_pages, viewBook_description;
     private ImageView img_book_info;
-    private static final int GalleryPick = 1;
-    private static final int RESULT_OK = -1;
-    private Uri ImageUri;
-    private String downloadImageUrl;
 
     private DatabaseReference dbRef;
-    private StorageReference ImagesRef;
 
     public ViewBookFragment(String bookID) {
         this.bookID = bookID;
@@ -72,20 +70,35 @@ public class ViewBookFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_view_book, container, false);
 
-        dbRef = FirebaseDatabase.getInstance().getReference("books").child("cientifico").child(bookID);
-        ImagesRef = FirebaseStorage.getInstance().getReference().child("cientifico");
+        dbRef = FirebaseDatabase.getInstance().getReference("books").child("registro").child(bookID);
 
-        img_book_info = view.findViewById(R.id.img_book_info);
+        img_book_info = (ImageView) view.findViewById(R.id.img_book_info);
+        viewBook_title = (TextView) view.findViewById(R.id.viewBook_title);
+        viewBook_author = (TextView) view.findViewById(R.id.viewBook_author);
+        viewBook_pages = (TextView) view.findViewById(R.id.viewBook_pages);
+        viewBook_description = (TextView) view.findViewById(R.id.viewBook_description);
 
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
 
-                    if (snapshot.child("f_image").exists()) {
+                    if (snapshot.child("imageLibro").exists()) {
                         String image = snapshot.child("imageLibro").getValue().toString();
                         Picasso.get().load(image).into(img_book_info);
                     }
+
+                    String titulo = snapshot.child("nombreLibro").getValue().toString();
+                    viewBook_title.setText(titulo);
+
+                    String autor = snapshot.child("autorLibro").getValue().toString();
+                    viewBook_author.setText(autor);
+
+                    String pages = snapshot.child("paginasLibro").getValue().toString();
+                    viewBook_pages.setText(pages);
+
+                    String description = snapshot.child("descripcionLibro").getValue().toString();
+                    viewBook_description.setText(description);
 
                 }
             }
