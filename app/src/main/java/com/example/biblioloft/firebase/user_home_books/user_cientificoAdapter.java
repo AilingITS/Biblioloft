@@ -11,9 +11,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.biblioloft.R;
+import com.example.biblioloft.fragmentsUser.view_book.ViewBookFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +53,11 @@ public class user_cientificoAdapter extends RecyclerView.Adapter<user_cientifico
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                AppCompatActivity activity = (AppCompatActivity) context;
+                Fragment myFragment = new ViewBookFragment(books.getLibroID());
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.body_container, myFragment).addToBackStack(null).commit();
+
                 /*AlertDialog.Builder dialogo1 = new AlertDialog.Builder(context);
                 dialogo1.setCancelable(true);
 
