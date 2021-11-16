@@ -179,7 +179,7 @@ public class agregarAventuraFragment extends Fragment {
         }
     }
 
-    // Actualiza los datos menos la foto de perfil
+    // Actualiza los datos menos la foto
     private void SaveInfoToDatabasewithoutImage () {
         Calendar calendar = Calendar.getInstance();
         //SimpleDateFormat currentDate = new SimpleDateFormat(" dd MM, yyyy");
