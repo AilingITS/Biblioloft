@@ -43,7 +43,7 @@
             />
 
         <EditText
-            android:id="@+id/programar_fecha1"
+            android:id="@+id/elegir_fecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@color/light_white"
@@ -73,7 +73,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/notifications_time1"
+            android:id="@+id/elegir_hora"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Elige una hora"

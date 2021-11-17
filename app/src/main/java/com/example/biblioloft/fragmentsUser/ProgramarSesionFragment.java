@@ -1,11 +1,24 @@
 package com.example.biblioloft.fragmentsUser;
 
+import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,12 +27,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.biblioloft.MainActivity;
 import com.example.biblioloft.R;
+import com.example.biblioloft.fragmentsUser.alarm.NotificationService;
 import com.example.biblioloft.fragmentsUser.alarm.Utils;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +50,22 @@ public class ProgramarSesionFragment extends Fragment {
     private String mParam2;
 
     private View view;
+    EditText elegir_fecha, elegir_hora;
+    DatePickerDialog.OnDateSetListener setListener;
+    int Hour, Minute;
+
+    private Button notification_establecer, notification_borrar;
+    private static final String channelID = "canal";
+    private PendingIntent pendingIntent;
+
+
+
+
+
+
+
+
+
     //Barra de progreso del libro actual que se esta leyendo
     private int CurrentProgress = 0;
     private ProgressBar progressBar;
@@ -50,8 +83,8 @@ public class ProgramarSesionFragment extends Fragment {
     private static final String TAG = "CalendarActivity";
     private CalendarView calendarView;
     String date, strDate;
-    Calendar actual = Calendar.getInstance();
-    Calendar calendar = Calendar.getInstance();
+    //Calendar actual = Calendar.getInstance();
+    //Calendar calendar = Calendar.getInstance();
 
     public ProgramarSesionFragment() {
         // Required empty public constructor
@@ -79,6 +112,79 @@ public class ProgramarSesionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_programar_sesion, container, false);
+
+        elegir_fecha = view.findViewById(R.id.elegir_fecha);
+        elegir_hora = view.findViewById(R.id.elegir_hora);
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        elegir_fecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        setListener, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+
+        setListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month+1;
+                String date = dayOfMonth+"/"+month+"/"+year;
+                elegir_fecha.setText(date);
+                Toast.makeText(getContext(), "Fecha establecida", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        elegir_hora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Hour = hourOfDay;
+                        Minute = minute;
+
+                        calendar.set(0, 0, 0, Hour, Minute);
+                        elegir_hora.setText(Hour+":"+Minute);
+                        Toast.makeText(getContext(), "Hora establecida", Toast.LENGTH_SHORT).show();
+                    }
+                },Hour, Minute, true
+                );
+
+                timePickerDialog.updateTime(Hour, Minute);
+                timePickerDialog.show();
+            };
+        });
+
+        // NOTIFICACIÓN
+        notification_establecer = view.findViewById(R.id.notification_establecer);
+        notification_establecer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    showNotification();
+                } else {
+                    showNewNotification();
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
 
 
 
@@ -175,5 +281,35 @@ public class ProgramarSesionFragment extends Fragment {
         });*/
 
         return view;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void showNotification(){
+        NotificationChannel channel = new NotificationChannel(channelID,
+                "NEW", NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.createNotificationChannel(channel);
+        showNewNotification();
+    }
+
+    private void showNewNotification(){
+        setPendingIntent(MainActivity.class);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity().getApplicationContext(),
+                channelID)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("Sesión terminada")
+                .setContentText("No olvides registrar las páginas.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent);
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getActivity().getApplicationContext());
+        managerCompat.notify(1, builder.build());
+    }
+
+    private void setPendingIntent(Class<?> clsActivity){
+        Intent intent = new Intent(getActivity(), clsActivity);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
+        stackBuilder.addParentStack(clsActivity);
+        stackBuilder.addNextIntent(intent);
+        pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }
