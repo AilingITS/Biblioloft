@@ -7,17 +7,60 @@
     android:background="@color/white"
     tools:context=".fragmentsUser.view_book.ViewBookFragment">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/img_book_info"
+    <LinearLayout
+        android:id="@+id/LL_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/logo"
+        android:layout_marginEnd="16dp"
+        android:background="@color/background_app"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_book_info"
+            android:layout_width="160dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btn_empezar_leer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/rojo_vino"
+                android:text="Empezar a leer"
+                android:textColor="@color/white"
+                />
+
+            <Button
+                android:id="@+id/btn_agregar_favoritos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/rojo_vino"
+                android:text="Agregar a favoritos"
+                android:textColor="@color/white"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/LL_titulo"
@@ -29,7 +72,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_book_info">
+        app:layout_constraintTop_toBottomOf="@+id/LL_image">
 
         <TextView
             android:id="@+id/textView12"
@@ -118,6 +161,20 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/line_1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/line_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LL_paginas" />
+
     <LinearLayout
         android:id="@+id/LL_description"
         android:layout_width="match_parent"
@@ -128,16 +185,20 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LL_paginas"
+        app:layout_constraintTop_toBottomOf="@+id/line_1"
         >
 
         <TextView
             android:id="@+id/textView15"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:layout_gravity="center"
             android:text="Descripción"
-            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:background="@color/rojo_vino"
+            android:textColor="@color/white"
             android:textSize="18dp"
             android:textStyle="bold"
             tools:ignore="MissingConstraints" />
@@ -146,10 +207,55 @@
             android:id="@+id/viewBook_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             android:text="Descripción"
             android:textColor="@color/black"
             android:textSize="18dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LL_comentarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LL_description"
+        >
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:layout_gravity="center"
+            android:text="Comentarios"
+            android:textAlignment="center"
+            android:background="@color/rojo_vino"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/viewBook_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/input_button"
+            android:hint="Escriba su comentario..."
+            android:textColorHint="@color/light_white"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            tools:layout_editor_absoluteX="96dp"
+            tools:layout_editor_absoluteY="615dp" />
 
     </LinearLayout>
 

@@ -80,19 +80,21 @@ public class ProgramarSesionFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_programar_sesion, container, false);
 
-        //BARRA DE PROGRESO - paginas leidas
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        startProgress = (Button) view.findViewById(R.id.startProgress);
-        main_Nump_aginasLeidas = (TextView) view.findViewById(R.id.main_Nump_aginasLeidas);
 
-        startProgress.setOnClickListener(new View.OnClickListener() {
+
+        //BARRA DE PROGRESO - paginas leidas
+        //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        //startProgress = (Button) view.findViewById(R.id.startProgress);
+        //main_Nump_aginasLeidas = (TextView) view.findViewById(R.id.main_Nump_aginasLeidas);
+
+        /*startProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CurrentProgress = CurrentProgress + 10;
                 progressBar.setProgress(CurrentProgress);
                 progressBar.setMax(100);
             }
-        });
+        });*/
 
         settings = getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
@@ -101,16 +103,16 @@ public class ProgramarSesionFragment extends Fragment {
         hour = settings.getString("hour","");
         minute = settings.getString("minute","");
 
-        notificationsTime = (TextView) view.findViewById(R.id.notifications_time);
-        change_notification = (Button) view.findViewById(R.id.change_notification);
-        calendarView = (CalendarView) view.findViewById(R.id.calendarView);
-        programar_fecha = (TextView) view.findViewById(R.id.programar_fecha);
+        //notificationsTime = (TextView) view.findViewById(R.id.notifications_time);
+        //change_notification = (Button) view.findViewById(R.id.change_notification);
+        //calendarView = (CalendarView) view.findViewById(R.id.calendarView);
+        //programar_fecha = (TextView) view.findViewById(R.id.programar_fecha);
 
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        strDate = format.format(calendar.getTime());
-        programar_fecha.setText(strDate);
+        //SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        //strDate = format.format(calendar.getTime());
+        //programar_fecha.setText(strDate);
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        /*calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -170,7 +172,7 @@ public class ProgramarSesionFragment extends Fragment {
                     mTimePicker.setTitle(getString(R.string.programar_hora));
                     mTimePicker.show();
             }
-        });
+        });*/
 
         return view;
     }
