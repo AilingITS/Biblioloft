@@ -6,54 +6,75 @@
     android:layout_height="match_parent"
     tools:context="com.example.biblioloft.fragmentsAdmin.HomeAdminFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+
+
+    <LinearLayout
+        android:id="@+id/LL_image"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/agregarLibro"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:textStyle="bold"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/imgCientificos"
-        android:layout_width="100dp"
-        android:layout_height="110dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/input_button"
-        android:drawableStart="@drawable/ic_cientificos_90"
-        android:onClick="onClick"
-        android:paddingStart="7dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textCientificos"
-        android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="@string/agregarLibro"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="@string/stringCientificos"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/imgCientificos"
-        app:layout_constraintStart_toStartOf="@+id/imgCientificos"
-        app:layout_constraintTop_toBottomOf="@+id/imgCientificos" />
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textView">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center_vertical">
+                <Button
+                    android:id="@+id/imgCientificos"
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/input_button"
+                    android:drawableStart="@drawable/ic_cientificos_90"
+                    android:onClick="onClick"
+                    android:paddingStart="7dp" />
+
+                    <TextView
+                        android:id="@+id/textCientificos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/stringCientificos"
+                        android:textColor="@color/black"
+                        />
+        </LinearLayout>
     <Button
         android:id="@+id/imgLiteratura"
         android:layout_width="100dp"
         android:layout_height="110dp"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
         android:background="@drawable/input_button"
         android:drawableStart="@drawable/ic_literatura_90"
         android:onClick="onClick"
@@ -61,24 +82,14 @@
         app:layout_constraintStart_toEndOf="@+id/imgCientificos"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/textLiteratura"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="@string/stringLiteratura"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/imgLiteratura"
-        app:layout_constraintStart_toStartOf="@+id/imgLiteratura"
-        app:layout_constraintTop_toBottomOf="@+id/imgLiteratura" />
+
 
     <Button
         android:id="@+id/imgAventura"
         android:layout_width="100dp"
         android:layout_height="110dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
         android:background="@drawable/input_button"
         android:drawableStart="@drawable/ic_aventura_90"
         android:onClick="onClick"
@@ -86,18 +97,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/textAventura"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:text="@string/stringAventura"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/imgAventura"
-        app:layout_constraintStart_toStartOf="@+id/imgAventura"
-        app:layout_constraintTop_toBottomOf="@+id/imgAventura" />
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_gravity="center_vertical">
+
+
+
+        <TextView
+            android:id="@+id/textLiteratura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/stringLiteratura"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/imgLiteratura"
+            app:layout_constraintStart_toStartOf="@+id/imgLiteratura"
+            app:layout_constraintTop_toBottomOf="@+id/imgLiteratura" />
+
+        <TextView
+            android:id="@+id/textAventura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="@string/stringAventura"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/imgAventura"
+            app:layout_constraintStart_toStartOf="@+id/imgAventura"
+            app:layout_constraintTop_toBottomOf="@+id/imgAventura" />
+
+
+    </LinearLayout>
     <Button
         android:id="@+id/imgTerror"
         android:layout_width="100dp"
@@ -248,5 +285,5 @@
         app:layout_constraintEnd_toEndOf="@+id/imgFiccion"
         app:layout_constraintStart_toStartOf="@+id/imgFiccion"
         app:layout_constraintTop_toBottomOf="@+id/imgFiccion" />
-
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
