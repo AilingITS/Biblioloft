@@ -62,17 +62,37 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/LL_titulo"
+    <TextView
+        android:id="@+id/fichaTecnica"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@color/rojo_vino"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="Ficha técnica"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LL_image"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:id="@+id/LL_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LL_image">
+        app:layout_constraintTop_toBottomOf="@+id/fichaTecnica">
 
         <TextView
             android:id="@+id/textView12"
@@ -81,8 +101,8 @@
             android:layout_marginRight="5dp"
             android:text="Título:"
             android:textColor="@color/black"
-            android:textStyle="bold"
             android:textSize="18dp"
+            android:textStyle="bold"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -195,7 +215,7 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:layout_gravity="center"
-            android:text="Descripción"
+            android:text="Sinopsis"
             android:textAlignment="center"
             android:background="@color/rojo_vino"
             android:textColor="@color/white"
@@ -246,14 +266,14 @@
             android:id="@+id/viewBook_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/input_button"
-            android:hint="Escriba su comentario..."
-            android:textColorHint="@color/light_white"
             android:ems="10"
             android:gravity="start|top"
+            android:hint="Escriba su comentario..."
             android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textColorHint="@color/light_white"
             tools:layout_editor_absoluteX="96dp"
             tools:layout_editor_absoluteY="615dp" />
 

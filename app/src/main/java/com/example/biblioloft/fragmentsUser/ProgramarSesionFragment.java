@@ -51,19 +51,16 @@ public class ProgramarSesionFragment extends Fragment {
 
     private View view;
     EditText elegir_fecha, elegir_hora;
+    Calendar calendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener setListener;
-    int Hour, Minute;
+    private String finalHour, finalMinute;
 
     private Button notification_establecer, notification_borrar;
-    private static final String channelID = "canal";
-    private PendingIntent pendingIntent;
 
 
 
-
-
-
-
+    //private static final String channelID = "canal";
+    //private PendingIntent pendingIntent;
 
 
     //Barra de progreso del libro actual que se esta leyendo
@@ -113,20 +110,26 @@ public class ProgramarSesionFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_programar_sesion, container, false);
 
+        settings = getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+
+
         elegir_fecha = view.findViewById(R.id.elegir_fecha);
         elegir_hora = view.findViewById(R.id.elegir_hora);
 
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        Calendar calendarActual = Calendar.getInstance();
+
+        final int yearActual = calendarActual.get(Calendar.YEAR);
+        final int monthActual = calendarActual.get(Calendar.MONTH);
+        final int dayActual = calendarActual.get(Calendar.DAY_OF_MONTH);
+        final int hourActual = calendarActual.get(Calendar.HOUR);
+        final int minuteActual = calendarActual.get(Calendar.MINUTE);
 
         elegir_fecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
                         getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        setListener, year, month, day);
+                        setListener, yearActual, monthActual, dayActual);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
             }
@@ -135,6 +138,9 @@ public class ProgramarSesionFragment extends Fragment {
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.YEAR, year);
                 month = month+1;
                 String date = dayOfMonth+"/"+month+"/"+year;
                 elegir_fecha.setText(date);
@@ -149,17 +155,36 @@ public class ProgramarSesionFragment extends Fragment {
                         getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        Hour = hourOfDay;
+                        /*Hour = hourOfDay;
                         Minute = minute;
+                        calendar.set(0, 0, 0, Hour, Minute);*/
 
-                        calendar.set(0, 0, 0, Hour, Minute);
-                        elegir_hora.setText(Hour+":"+Minute);
+                        finalHour = "" + hourOfDay;
+                        finalMinute = "" + minute;
+                        if (hourOfDay < 10) finalHour = "0" + hourOfDay;
+                        if (minute < 10) finalMinute = "0" + minute;
+
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+                        calendar.set(Calendar.SECOND, 0);
+
+                        SharedPreferences.Editor edit = settings.edit();
+                        edit.putString("hour", finalHour);
+                        edit.putString("minute", finalMinute);
+
+                        //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
+                        edit.putInt("alarmID", alarmID);
+                        edit.putLong("alarmTime", calendar.getTimeInMillis());
+
+                        edit.commit();
+
+                        elegir_hora.setText(finalHour+":"+finalMinute);
                         Toast.makeText(getContext(), "Hora establecida", Toast.LENGTH_SHORT).show();
                     }
-                },Hour, Minute, true
+                },hourActual, minuteActual, true
                 );
 
-                timePickerDialog.updateTime(Hour, Minute);
+                timePickerDialog.updateTime(hourActual, minuteActual);
                 timePickerDialog.show();
             };
         });
@@ -168,6 +193,19 @@ public class ProgramarSesionFragment extends Fragment {
         notification_establecer = view.findViewById(R.id.notification_establecer);
         notification_establecer.setOnClickListener(new View.OnClickListener() {
             @Override
+            public void onClick(View view) {
+                Utils.setAlarm(alarmID, calendar.getTimeInMillis(), getActivity());
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                strDate = format.format(calendar.getTime());
+                Toast.makeText(getActivity(), getString(R.string.changed_to, finalHour + ":" + finalMinute + " para el dia " + strDate), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
+
+        /*notification_establecer.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                     showNotification();
@@ -175,7 +213,7 @@ public class ProgramarSesionFragment extends Fragment {
                     showNewNotification();
                 }
             }
-        });
+        });*/
 
 
 
@@ -202,12 +240,12 @@ public class ProgramarSesionFragment extends Fragment {
             }
         });*/
 
-        settings = getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        /*settings = getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
         String hour, minute;
 
         hour = settings.getString("hour","");
-        minute = settings.getString("minute","");
+        minute = settings.getString("minute","");*/
 
         //notificationsTime = (TextView) view.findViewById(R.id.notifications_time);
         //change_notification = (Button) view.findViewById(R.id.change_notification);
@@ -234,9 +272,9 @@ public class ProgramarSesionFragment extends Fragment {
         // Al momento de dar clic en seleccionar hora se establecen los valores actuales del dispositivo
         if(hour.length() > 0) {
             notificationsTime.setText(hour + ":" + minute);
-        }
+        }*/
 
-        change_notification.setOnClickListener(new View.OnClickListener() {
+        /*change_notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     // Los valores que seleccionas se guardan
@@ -283,7 +321,7 @@ public class ProgramarSesionFragment extends Fragment {
         return view;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    /*@RequiresApi(api = Build.VERSION_CODES.O)
     private void showNotification(){
         NotificationChannel channel = new NotificationChannel(channelID,
                 "NEW", NotificationManager.IMPORTANCE_DEFAULT);
@@ -296,13 +334,13 @@ public class ProgramarSesionFragment extends Fragment {
         setPendingIntent(MainActivity.class);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity().getApplicationContext(),
                 channelID)
+                .setWhen(calendar.getTimeInMillis())
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle("Sesión terminada")
                 .setContentText("No olvides registrar las páginas.")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent);
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getActivity().getApplicationContext());
-        managerCompat.notify(1, builder.build());
+        managerCompat.notify((int) calendar.getTimeInMillis(), builder.build());
     }
 
     private void setPendingIntent(Class<?> clsActivity){
@@ -311,5 +349,5 @@ public class ProgramarSesionFragment extends Fragment {
         stackBuilder.addParentStack(clsActivity);
         stackBuilder.addNextIntent(intent);
         pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
+    }*/
 }

@@ -39,18 +39,16 @@
             android:layout_height="wrap_content"
             android:text="Fecha: "
             android:textColor="@color/black"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/elegir_fecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/light_white"
             android:hint="Elige una fecha..."
+            android:textColorHint="@color/light_white"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/fecha1"
-            />
+            app:layout_constraintStart_toEndOf="@+id/fecha1" />
 
     </LinearLayout>
 
@@ -77,8 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Elige una hora"
-            android:textSize="18sp"
-            />
+            android:textColorHint="@color/light_white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -158,15 +156,15 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:padding="5dp"
         android:background="@color/background_menu"
+        android:padding="5dp"
         android:text="Establecer notificación"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LL_hora" />
 
-    <Button
+    <!--<Button
         android:id="@+id/notification_borrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -181,7 +179,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notification_establecer" />
 
-    <!--<ProgressBar
+    <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="311dp"
@@ -234,5 +232,87 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />-->
+
+    <TextView
+        android:id="@+id/book_reading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Libro leyendo"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notification_establecer" />
+
+    <LinearLayout
+        android:id="@+id/LL_libro_leyendo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_reading">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_libro_leyendo"
+            android:layout_width="160dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/leyendo_titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="No se esta leyendo un libro actualmente"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ultima página leída:"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        />
+
+                    <TextView
+                        android:id="@+id/leyendo_pagina"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

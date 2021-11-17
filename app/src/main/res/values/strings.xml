@@ -66,5 +66,6 @@
 
     <string name="changed_to">Notificación cambiada a las %s</string>
     <string name="new_notification">Nueva notificación</string>
+    <string name="title_notification">Biblioloft</string>
 
 </resources>
