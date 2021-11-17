@@ -7,9 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.biblioloft.R;
+import com.example.biblioloft.fragmentsUser.view_book.ViewBookFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -45,6 +48,9 @@ public class user_misterioAdapter extends RecyclerView.Adapter<user_misterioAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) context;
+                Fragment myFragment = new ViewBookFragment(books.getLibroID());
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.body_container, myFragment).addToBackStack(null).commit();
                 /*AlertDialog.Builder dialogo1 = new AlertDialog.Builder(context);
                 dialogo1.setCancelable(true);
 
