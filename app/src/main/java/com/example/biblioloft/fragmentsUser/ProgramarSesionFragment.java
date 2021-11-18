@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -29,18 +30,31 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.biblioloft.MainActivity;
+import com.example.biblioloft.Prevalent.Prevalent;
 import com.example.biblioloft.R;
 import com.example.biblioloft.fragmentsUser.alarm.NotificationService;
 import com.example.biblioloft.fragmentsUser.alarm.Utils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class ProgramarSesionFragment extends Fragment {
 
@@ -55,33 +69,16 @@ public class ProgramarSesionFragment extends Fragment {
     DatePickerDialog.OnDateSetListener setListener;
     private String finalHour, finalMinute;
 
-    private Button notification_establecer, notification_borrar;
+    private Button notification_establecer, libroleyendo_eliminar;
 
-
-
-    //private static final String channelID = "canal";
-    //private PendingIntent pendingIntent;
-
-
-    //Barra de progreso del libro actual que se esta leyendo
-    private int CurrentProgress = 0;
-    private ProgressBar progressBar;
-    private Button startProgress;
-    private TextView main_Nump_aginasLeidas;
-
-    //Hora
-    private TextView notificationsTime;
-    private Button change_notification;
     private int alarmID = 1;
     private SharedPreferences settings;
+    String strDate;
 
-    //Fecha
-    private TextView programar_fecha;
-    private static final String TAG = "CalendarActivity";
-    private CalendarView calendarView;
-    String date, strDate;
-    //Calendar actual = Calendar.getInstance();
-    //Calendar calendar = Calendar.getInstance();
+    //Libro leyendo
+    private ImageView img_libro_leyendo;
+    private TextView leyendo_titulo;
+    private DatabaseReference dbRef_libroLeyendo;
 
     public ProgramarSesionFragment() {
         // Required empty public constructor
@@ -111,7 +108,54 @@ public class ProgramarSesionFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_programar_sesion, container, false);
 
         settings = getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        dbRef_libroLeyendo = FirebaseDatabase.getInstance().getReference().child("users").child(Prevalent.currentOnlineUser.getNombre()).child("libroleyendo");
 
+        img_libro_leyendo = (ImageView) view.findViewById(R.id.img_libro_leyendo);
+        leyendo_titulo = (TextView) view.findViewById(R.id.leyendo_titulo);
+        libroleyendo_eliminar = (Button) view.findViewById(R.id.libroleyendo_eliminar);
+
+        dbRef_libroLeyendo.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+
+                    if (snapshot.child("imageLibro").exists()) {
+                        String image = snapshot.child("imageLibro").getValue().toString();
+                        Picasso.get().load(image).into(img_libro_leyendo);
+                    }
+
+                    String titulo = snapshot.child("nombreLibro").getValue().toString();
+                    leyendo_titulo.setText(titulo);
+
+                    //autor = snapshot.child("autorLibro").getValue().toString();
+                    //viewBook_author.setText(autor);
+
+                    //String pages = snapshot.child("paginasLibro").getValue().toString();
+                    //viewBook_pages.setText(pages);
+
+                    //description = snapshot.child("descripcionLibro").getValue().toString();
+                    //viewBook_description.setText(description);
+
+                    //libroID = snapshot.child("libroID").getValue().toString();
+                    //tipoLibro = snapshot.child("tipoLibro").getValue().toString();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+            }
+        });
+
+        libroleyendo_eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbRef_libroLeyendo.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+                        Toast.makeText(getActivity(),"Se ha borrado correctamente",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
         elegir_fecha = view.findViewById(R.id.elegir_fecha);
         elegir_hora = view.findViewById(R.id.elegir_hora);
@@ -123,6 +167,7 @@ public class ProgramarSesionFragment extends Fragment {
         final int dayActual = calendarActual.get(Calendar.DAY_OF_MONTH);
         final int hourActual = calendarActual.get(Calendar.HOUR);
         final int minuteActual = calendarActual.get(Calendar.MINUTE);
+
 
         elegir_fecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,152 +247,7 @@ public class ProgramarSesionFragment extends Fragment {
         });
 
 
-
-
-        /*notification_establecer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                    showNotification();
-                } else {
-                    showNewNotification();
-                }
-            }
-        });*/
-
-
-
-
-
-
-
-
-
-
-
-
-        //BARRA DE PROGRESO - paginas leidas
-        //progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        //startProgress = (Button) view.findViewById(R.id.startProgress);
-        //main_Nump_aginasLeidas = (TextView) view.findViewById(R.id.main_Nump_aginasLeidas);
-
-        /*startProgress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CurrentProgress = CurrentProgress + 10;
-                progressBar.setProgress(CurrentProgress);
-                progressBar.setMax(100);
-            }
-        });*/
-
-        /*settings = getContext().getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-
-        String hour, minute;
-
-        hour = settings.getString("hour","");
-        minute = settings.getString("minute","");*/
-
-        //notificationsTime = (TextView) view.findViewById(R.id.notifications_time);
-        //change_notification = (Button) view.findViewById(R.id.change_notification);
-        //calendarView = (CalendarView) view.findViewById(R.id.calendarView);
-        //programar_fecha = (TextView) view.findViewById(R.id.programar_fecha);
-
-        //SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        //strDate = format.format(calendar.getTime());
-        //programar_fecha.setText(strDate);
-
-        /*calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.YEAR, year);
-
-                date = dayOfMonth + "/" + (month+1) + "/" + year;
-                programar_fecha.setText(date);
-                Toast.makeText(getContext(), "Fecha: " + date, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Al momento de dar clic en seleccionar hora se establecen los valores actuales del dispositivo
-        if(hour.length() > 0) {
-            notificationsTime.setText(hour + ":" + minute);
-        }*/
-
-        /*change_notification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    // Los valores que seleccionas se guardan
-                    int hour = actual.get(Calendar.HOUR_OF_DAY);
-                    int minute = actual.get(Calendar.MINUTE);
-
-                    TimePickerDialog mTimePicker;
-                    mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                            String finalHour, finalMinute;
-
-                            finalHour = "" + selectedHour;
-                            finalMinute = "" + selectedMinute;
-                            if (selectedHour < 10) finalHour = "0" + selectedHour;
-                            if (selectedMinute < 10) finalMinute = "0" + selectedMinute;
-                            notificationsTime.setText(finalHour + ":" + finalMinute);
-
-                            calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
-                            calendar.set(Calendar.MINUTE, selectedMinute);
-                            calendar.set(Calendar.SECOND, 0);
-
-                            SharedPreferences.Editor edit = settings.edit();
-                            edit.putString("hour", finalHour);
-                            edit.putString("minute", finalMinute);
-
-                            //SAVE ALARM TIME TO USE IT IN CASE OF REBOOT
-                            edit.putInt("alarmID", alarmID);
-                            edit.putLong("alarmTime", calendar.getTimeInMillis());
-
-                            edit.commit();
-
-                            strDate = format.format(calendar.getTime());
-                            Toast.makeText(getActivity(), getString(R.string.changed_to, finalHour + ":" + finalMinute + " para el dia " + strDate), Toast.LENGTH_LONG).show();
-
-                            Utils.setAlarm(alarmID, calendar.getTimeInMillis(), getContext());
-                        }
-                    }, hour, minute, true);//Yes 24 hour time
-                    mTimePicker.setTitle(getString(R.string.programar_hora));
-                    mTimePicker.show();
-            }
-        });*/
-
         return view;
     }
 
-    /*@RequiresApi(api = Build.VERSION_CODES.O)
-    private void showNotification(){
-        NotificationChannel channel = new NotificationChannel(channelID,
-                "NEW", NotificationManager.IMPORTANCE_DEFAULT);
-        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.createNotificationChannel(channel);
-        showNewNotification();
-    }
-
-    private void showNewNotification(){
-        setPendingIntent(MainActivity.class);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity().getApplicationContext(),
-                channelID)
-                .setWhen(calendar.getTimeInMillis())
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle("Sesión terminada")
-                .setContentText("No olvides registrar las páginas.")
-                .setContentIntent(pendingIntent);
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(getActivity().getApplicationContext());
-        managerCompat.notify((int) calendar.getTimeInMillis(), builder.build());
-    }
-
-    private void setPendingIntent(Class<?> clsActivity){
-        Intent intent = new Intent(getActivity(), clsActivity);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getActivity());
-        stackBuilder.addParentStack(clsActivity);
-        stackBuilder.addNextIntent(intent);
-        pendingIntent = stackBuilder.getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT);
-    }*/
 }
