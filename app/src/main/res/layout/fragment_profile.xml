@@ -10,20 +10,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp">
+            >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
                 android:layout_gravity="center"
                 android:text="@string/profile_text"
+                android:background="@color/rojo_vino"
                 android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -40,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="32dp"
                 android:text="@string/nombre_text"
                 android:textAlignment="center"
                 android:textColor="@color/black"
@@ -48,40 +54,48 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/perfil_mail_text"
+                android:id="@+id/fichaTecnica"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/mail_text"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/rojo_vino"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:text="Libros"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/libros_leidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="32dp"
+                android:text="Leídos recientemente"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/profile_mail"
+            <TextView
+                android:id="@+id/libros_favoritos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="180dp"
-                android:text="@string/mail_text"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="32dp"
+                android:text="Mis favoritos"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/profile_upgrade"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:backgroundTint="@color/verdeBtn"
-                android:text="@string/actualizar_text"
-                android:textColor="@color/black" />
+        </LinearLayout>
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
+
 </FrameLayout>

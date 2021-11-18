@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="@color/white"
     tools:context="com.example.biblioloft.fragmentsUser.EditarPerfilFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,41 +20,44 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
+            android:background="@color/rojo_vino"
             android:gravity="center"
             android:text="@string/editarDatosString"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="24dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/profile_img"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_perfil_usuario"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editar_datosPaciente" />
+
         <TextView
             android:id="@+id/editar_nombreCompleto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:text="@string/nombre_text"
+            android:gravity="center"
             android:textSize="20dp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editar_datosPaciente" />
-
-        <EditText
-            android:id="@+id/editar_paciente_nombreCompleto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:hint="@string/nombre_text"
-            android:textColorHint="@color/light_white"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editar_nombreCompleto" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_img" />
 
         <TextView
             android:id="@+id/editar_correoPaciente"
@@ -65,9 +69,10 @@
             android:text="@string/mail_text"
             android:textSize="20dp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editar_paciente_nombreCompleto" />
+            app:layout_constraintTop_toBottomOf="@+id/editar_nombreCompleto" />
 
         <EditText
             android:id="@+id/editar_paciente_correo"
@@ -89,7 +94,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="92dp"
             android:backgroundTint="@color/btn_cafe"
             android:text="@string/guardarCambiosString"
             android:textColor="@color/white"
@@ -97,7 +102,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editar_paciente_correo"/>
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
